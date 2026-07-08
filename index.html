@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ceyway Travels — Sri Lanka, Your Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Public+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12211F;
+    --teal:#0F3D3A;
+    --teal-deep:#0A2B29;
+    --cream:#F2E9D8;
+    --cream-dim:#e3d6ba;
+    --gold:#D9A441;
+    --clay:#C1602E;
+    --leaf:#5C7A52;
+    --line: rgba(242,233,216,0.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    font-weight:400;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.18em;
+    font-size:0.72rem;
+    font-weight:700;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(18,33,31,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px; max-width:1180px; margin:0 auto;
+    color:var(--cream);
+  }
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-size:1.3rem; letter-spacing:0.01em;}
+  .logo svg{width:30px;height:30px;flex-shrink:0;}
+  .navlinks{display:flex; gap:34px; font-size:0.88rem;}
+  .navlinks a{position:relative; padding:4px 0; opacity:0.88;}
+  .navlinks a:hover{opacity:1;}
+  .navlinks a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--gold);transition:width .25s ease;}
+  .navlinks a:hover::after{width:100%;}
+  .nav-cta{
+    font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
+    border:1px solid var(--gold); color:var(--gold); padding:9px 18px; border-radius:2px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .nav-cta:hover{background:var(--gold); color:var(--ink);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    padding-top:90px;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero-bg{
+    position:absolute; inset:0; z-index:-2;
+    background-image:
+      linear-gradient(180deg, rgba(10,20,19,0.55) 0%, rgba(10,20,19,0.75) 55%, var(--ink) 100%),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Stilt_fishing_Sri_Lanka_(29445683784).jpg?width=1800');
+    background-size:cover;
+    background-position:center 38%;
+  }
+  .hero-rays{position:absolute; inset:0; opacity:0.35; pointer-events:none; z-index:-1;}
+  .hero-grid{
+    display:grid; grid-template-columns: 1.15fr 0.85fr; gap:40px; align-items:center;
+    width:100%; position:relative; z-index:2;
+  }
+  .hero-eyebrow{color:var(--gold); margin-bottom:22px; display:flex; align-items:center; gap:12px;}
+  .hero-eyebrow .rule{width:38px;height:1px;background:var(--gold);display:inline-block;}
+  .hero h1{
+    font-size:clamp(2.6rem, 5.2vw, 4.6rem);
+    line-height:1.02;
+    color:var(--cream);
+    text-shadow:0 2px 24px rgba(0,0,0,0.35);
+  }
+  .hero h1 em{font-style:italic; color:var(--gold); font-weight:500;}
+  .hero p.lede{
+    max-width:480px; margin-top:26px; font-size:1.08rem; line-height:1.65; color:var(--cream-dim);
+  }
+  .hero-ctas{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--gold); color:var(--ink); padding:15px 28px; border-radius:2px;
+    font-weight:600; font-size:0.95rem; display:inline-flex; align-items:center; gap:10px;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(217,164,65,0.28);}
+  .btn-ghost{
+    border:1px solid var(--line); color:var(--cream); padding:15px 28px; border-radius:2px;
+    font-weight:500; font-size:0.95rem; transition:border-color .2s ease, background .2s ease;
+    backdrop-filter:blur(2px);
+  }
+  .btn-ghost:hover{border-color:var(--cream); background:rgba(242,233,216,0.08);}
+  .hero-stats{display:flex; gap:34px; margin-top:56px; flex-wrap:wrap;}
+  .hero-stats div{border-left:1px solid var(--line); padding-left:14px;}
+  .hero-stats .num{font-family:'Fraunces',serif; font-size:1.7rem; color:var(--gold);}
+  .hero-stats .lbl{font-family:'Space Mono',monospace; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--cream-dim); margin-top:4px;}
+
+  /* arch + stamp illustration */
+  .hero-visual{position:relative; display:flex; justify-content:center;}
+  .arch-frame{
+    width:100%; max-width:420px; aspect-ratio: 3/4;
+    border:1.5px solid var(--gold);
+    border-radius:210px 210px 8px 8px;
+    padding:14px;
+    position:relative;
+    background:linear-gradient(180deg, rgba(217,164,65,0.06), transparent 40%);
+  }
+  .arch-inner{
+    width:100%; height:100%;
+    border:1px solid rgba(242,233,216,0.35);
+    border-radius:196px 196px 4px 4px;
+    overflow:hidden;
+    background-image:
+      linear-gradient(180deg, rgba(10,43,41,0.05) 40%, rgba(10,43,41,0.65) 100%),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Sigiriya.jpg?width=900');
+    background-size:cover;
+    background-position:center;
+  }
+  .stamp-badge{
+    position:absolute; bottom:-26px; left:-26px;
+    width:104px; height:104px; border-radius:50%;
+    background:var(--clay); color:var(--cream);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    border:2px dashed rgba(242,233,216,0.5);
+    font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.05em; text-transform:uppercase;
+    line-height:1.4; padding:8px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:120px 0;}
+  .section-head{max-width:640px; margin-bottom:64px;}
+  .section-head .eyebrow{color:var(--clay); margin-bottom:16px; display:flex; align-items:center; gap:12px;}
+  .section-head .eyebrow .rule{width:38px;height:1px;background:var(--clay);display:inline-block;}
+  .section-head h2{font-size:clamp(2rem,3.4vw,2.9rem); line-height:1.08;}
+  .section-head p{margin-top:18px; font-size:1.05rem; line-height:1.6; color:#3c4a44; max-width:540px;}
+  .light-on-dark .section-head p{color:var(--cream-dim);}
+
+  /* ---------- DESTINATIONS ---------- */
+  .dest-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
+    background:var(--ink);
+    border:1px solid var(--ink);
+  }
+  .dest-card{
+    background:var(--cream); position:relative;
+    display:flex; flex-direction:column;
+    overflow:hidden; transition:transform .3s ease;
+  }
+  .dest-photo{
+    height:220px; background-size:cover; background-position:center;
+    position:relative;
+  }
+  .dest-photo::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(18,33,31,0) 55%, rgba(18,33,31,0.85) 100%);
+  }
+  .dest-photo .num{
+    position:absolute; top:16px; left:18px; z-index:2;
+    font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--cream); letter-spacing:0.1em;
+    background:rgba(18,33,31,0.55); padding:4px 9px; border-radius:2px;
+  }
+  .dest-body{padding:22px 26px 28px;}
+  .dest-body h3{font-size:1.3rem; margin-bottom:8px;}
+  .dest-body p{font-size:0.92rem; color:#4a5951; line-height:1.55; margin:0;}
+  .dest-card:hover{transform:translateY(-3px);}
+  .dest-card:hover .dest-photo{filter:saturate(1.15);}
+
+  /* ---------- MAP / SIGNATURE ---------- */
+  .map-section{background:var(--ink); color:var(--cream);}
+  .map-layout{display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;}
+  .route-list{display:flex; flex-direction:column; gap:0;}
+  .route-item{
+    display:flex; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
+    align-items:baseline;
+  }
+  .route-item:first-child{padding-top:0;}
+  .route-dot{
+    width:9px; height:9px; border-radius:50%; background:var(--gold); flex-shrink:0;
+    margin-top:6px;
+  }
+  .route-item h4{font-family:'Fraunces',serif; font-size:1.12rem; font-weight:500; margin-bottom:4px;}
+  .route-item p{margin:0; font-size:0.88rem; color:var(--cream-dim); line-height:1.5;}
+  .map-svg-wrap{display:flex; justify-content:center;}
+  .map-svg-wrap svg{width:100%; max-width:420px; height:auto;}
+
+  /* ---------- PACKAGES ---------- */
+  .pkg-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .pkg-card{
+    border:1px solid #d7c9a6; border-radius:4px; overflow:hidden; background:#fbf6ea;
+    display:flex; flex-direction:column; height:100%;
+    transition:border-color .25s ease, transform .25s ease;
+  }
+  .pkg-card:hover{border-color:var(--gold); transform:translateY(-4px);}
+  .pkg-photo{height:170px; background-size:cover; background-position:center;}
+  .pkg-content{padding:28px 28px 30px; display:flex; flex-direction:column; flex-grow:1;}
+  .pkg-card .days{font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--clay); margin-bottom:16px;}
+  .pkg-card h3{font-size:1.5rem; margin-bottom:14px;}
+  .pkg-card ul{list-style:none; padding:0; margin:0 0 28px; flex-grow:1;}
+  .pkg-card li{
+    font-size:0.9rem; color:#42504a; padding:9px 0; border-top:1px solid #e6dcc2;
+    display:flex; gap:10px;
+  }
+  .pkg-card li::before{content:"—"; color:var(--gold); flex-shrink:0;}
+  .pkg-card .price-row{display:flex; align-items:baseline; justify-content:space-between; margin-top:auto;}
+  .pkg-card .price{font-family:'Fraunces',serif; font-size:1.3rem;}
+  .pkg-card .price span{font-family:'Space Mono',monospace; font-size:0.68rem; color:#7a8880;}
+  .pkg-card .arrow-link{font-size:0.85rem; font-weight:600; color:var(--clay); display:flex; align-items:center; gap:6px;}
+
+  /* ---------- WHY US ---------- */
+  .why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1px solid #d7c9a6;}
+  .why-item{padding:34px 26px 34px 0; border-bottom:1px solid #d7c9a6;}
+  .why-item + .why-item{border-left:1px solid #d7c9a6; padding-left:26px;}
+  .why-item .ic{width:36px;height:36px; margin-bottom:18px;}
+  .why-item h4{font-family:'Fraunces',serif; font-size:1.08rem; margin-bottom:10px;}
+  .why-item p{font-size:0.87rem; color:#4a5951; line-height:1.55; margin:0;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-section{
+    position:relative; color:var(--cream); isolation:isolate;
+  }
+  .testi-bg{
+    position:absolute; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(180deg, rgba(15,61,58,0.88), rgba(15,61,58,0.94)),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Tea_states_in_srilanka.jpg?width=1600');
+    background-size:cover; background-position:center;
+  }
+  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
+  .testi-card{border-top:2px solid var(--gold); padding-top:22px;}
+  .testi-card p.quote{font-family:'Fraunces',serif; font-style:italic; font-size:1.12rem; line-height:1.55; color:var(--cream);}
+  .testi-card .who{margin-top:20px; font-family:'Space Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold);}
+
+  /* ---------- CTA / CONTACT ---------- */
+  .cta-section{
+    background:linear-gradient(180deg, var(--ink), var(--teal-deep));
+    color:var(--cream);
+    text-align:center;
+    position:relative;
+  }
+  .cta-section h2{font-size:clamp(2.2rem,4.5vw,3.4rem); max-width:760px; margin:0 auto;}
+  .cta-section p{max-width:520px; margin:20px auto 0; color:var(--cream-dim); font-size:1.05rem; line-height:1.6;}
+  .cta-form{
+    max-width:640px; margin:48px auto 0; display:grid; grid-template-columns:1fr 1fr; gap:14px;
+    text-align:left;
+  }
+  .cta-form .full{grid-column:1/-1;}
+  .cta-form label{font-family:'Space Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--cream-dim); display:block; margin-bottom:8px;}
+  .cta-form input, .cta-form select, .cta-form textarea{
+    width:100%; background:transparent; border:1px solid var(--line); color:var(--cream);
+    padding:12px 14px; border-radius:2px; font-family:'Public Sans',sans-serif; font-size:0.92rem;
+  }
+  .cta-form input::placeholder, .cta-form textarea::placeholder{color:#7d8b85;}
+  .cta-form textarea{resize:vertical; min-height:90px;}
+  .cta-form select option{background:var(--ink);}
+  .cta-form button{
+    grid-column:1/-1; margin-top:6px; background:var(--gold); color:var(--ink); border:none;
+    padding:16px; font-weight:600; font-size:0.95rem; border-radius:2px; cursor:pointer;
+    transition:transform .2s ease;
+  }
+  .cta-form button:hover{transform:translateY(-2px);}
+  .form-note{grid-column:1/-1; font-size:0.78rem; color:#7d8b85; margin-top:2px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink); color:var(--cream-dim); padding:56px 0 28px; border-top:1px solid var(--line);}
+  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid var(--line);}
+  .foot-grid h5{font-family:'Space Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--cream); margin-bottom:16px;}
+  .foot-grid ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:0.88rem;}
+  .foot-grid ul a:hover{color:var(--gold);}
+  .foot-bottom{display:flex; justify-content:space-between; padding-top:24px; font-size:0.78rem; flex-wrap:wrap; gap:12px;}
+  .photo-credits{padding-top:20px; font-size:0.72rem; color:#5f6f68; line-height:1.8;}
+  .photo-credits a{color:#7d8b85;}
+  .photo-credits a:hover{color:var(--gold);}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .navlinks{display:none;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{order:-1; margin-bottom:10px;}
+    .arch-frame{max-width:280px;}
+    .dest-grid{grid-template-columns:repeat(2,1fr);}
+    .map-layout{grid-template-columns:1fr; gap:40px;}
+    .pkg-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:repeat(2,1fr);}
+    .why-item{border-left:none !important; padding-left:0 !important;}
+    .testi-grid{grid-template-columns:1fr; gap:30px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .cta-form{grid-template-columns:1fr;}
+  }
+  @media (max-width: 600px){
+    .dest-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .wrap{padding:0 20px;}
+    section{padding:80px 0;}
+  }
+
+  :focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="logo">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M2 24C8 24 8 14 14 14C20 14 20 24 26 24C32 24 32 14 38 14" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round"/><circle cx="20" cy="8" r="3" fill="#D9A441"/></svg>
+      Ceyway Travels
+    </a>
+    <div class="navlinks">
+      <a href="#destinations">Destinations</a>
+      <a href="#journeys">Journeys</a>
+      <a href="#why">Why Us</a>
+      <a href="#stories">Stories</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="nav-cta">Plan My Trip</a>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg" role="img" aria-label="Stilt fishermen at sunset off the southern coast of Sri Lanka"></div>
+  <svg class="hero-rays" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <g stroke="#D9A441" stroke-opacity="0.14" stroke-width="1.5">
+      <line x1="900" y1="-50" x2="1200" y2="850"/>
+      <line x1="960" y1="-50" x2="1280" y2="850"/>
+      <line x1="1020" y1="-50" x2="1350" y2="850"/>
+      <line x1="1080" y1="-50" x2="1420" y2="850"/>
+      <line x1="1140" y1="-50" x2="1490" y2="850"/>
+    </g>
+  </svg>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow"><span class="rule"></span>Est. Batticaloa, Sri Lanka</div>
+      <h1>Ceylon, charted<br><em>your way.</em></h1>
+      <p class="lede">Ceyway Travels designs unhurried journeys across Sri Lanka — ancient rock fortresses, misted tea country, leopard-country wilds and coastlines most tour buses never find. Planned by people who actually live here.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-primary">Start planning →</a>
+        <a href="#journeys" class="btn-ghost">View journeys</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="num">9</div><div class="lbl">Regions covered</div></div>
+        <div><div class="num">100%</div><div class="lbl">Tailor-made</div></div>
+        <div><div class="num">24/7</div><div class="lbl">Local support</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="arch-frame">
+        <div class="arch-inner" role="img" aria-label="Sigiriya Rock Fortress"></div>
+        <div class="stamp-badge">Sigiriya<br>Rock Fortress</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="destinations">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="rule"></span>The Island, In Nine Chapters</div>
+      <h2>Where Ceyway takes you</h2>
+      <p>Every itinerary is built from real places we know well — not a checklist. Here are the chapters our travellers return to again and again.</p>
+    </div>
+  </div>
+  <div class="dest-grid">
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sigiriya.jpg?width=800')"><span class="num">01 — CULTURAL TRIANGLE</span></div>
+      <div class="dest-body"><h3>Sigiriya &amp; Dambulla</h3><p>Climb the lion-carved rock fortress at dawn, then walk cave temples painted 2,000 years ago.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nine_Arch_Bridge_in_Ella.jpg?width=800')"><span class="num">02 — HILL COUNTRY</span></div>
+      <div class="dest-body"><h3>Ella &amp; Nine Arch Bridge</h3><p>Blue-line trains thread through tea estates and cloud forest on the world's most scenic rail line.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sri_Lankan_Leopard_-_Yala_National_Park.jpg?width=800')"><span class="num">03 — WILDLIFE</span></div>
+      <div class="dest-body"><h3>Yala &amp; Wilpattu</h3><p>Sri Lanka has the highest density of leopards on earth — plus elephants, sloth bears and wild peacocks.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Galle_Fort_Lighthouse.jpg?width=800')"><span class="num">04 — COLONIAL COAST</span></div>
+      <div class="dest-body"><h3>Galle Fort</h3><p>Dutch ramparts, rampart sunsets, and a walkable old town of boutique villas and courtyard cafés.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Tree_Hill.jpg?width=800')"><span class="num">05 — SOUTH COAST</span></div>
+      <div class="dest-body"><h3>Mirissa &amp; Weligama</h3><p>Blue whales offshore by morning, palm-lined surf breaks and beach shacks by afternoon.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sri_Dalada_Maligawa_or_the_Temple_of_the_Sacred_Tooth_Relic.jpg?width=800')"><span class="num">06 — SACRED KANDY</span></div>
+      <div class="dest-body"><h3>Temple of the Tooth</h3><p>Sri Lanka's cultural capital, ringed by lake, hills and the island's most revered Buddhist relic.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Tea_states_in_srilanka.jpg?width=800')"><span class="num">07 — TEA COUNTRY</span></div>
+      <div class="dest-body"><h3>Nuwara Eliya</h3><p>Little England in the clouds — rolling tea gardens, strawberry farms and crisp highland air.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Rankoth_Vehera_Polonnaruwa_Sri_Lanka.jpg?width=800')"><span class="num">08 — ANCIENT CITIES</span></div>
+      <div class="dest-body"><h3>Polonnaruwa &amp; Anuradhapura</h3><p>Vast stupas and stone Buddhas rising out of jungle — Sri Lanka's first two royal capitals.</p></div>
+    </div>
+
+    <div class="dest-card">
+      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Marble_beach_in_trincomalee.jpg?width=800')"><span class="num">09 — EAST COAST</span></div>
+      <div class="dest-body"><h3>Trincomalee &amp; Kalkudah</h3><p>The road less travelled: quiet coral bays, calm swimming waters and near-empty golden beaches.</p></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="map-section" id="journeys">
+  <div class="wrap">
+    <div class="section-head light-on-dark">
+      <div class="eyebrow" style="color:var(--gold)"><span class="rule" style="background:var(--gold)"></span>Sample Route</div>
+      <h2>One route, six stops — coast to hill country</h2>
+    </div>
+    <div class="map-layout">
+      <div class="route-list">
+        <div class="route-item"><span class="route-dot"></span><div><h4>Colombo</h4><p>Arrival &amp; city orientation</p></div></div>
+        <div class="route-item"><span class="route-dot"></span><div><h4>Sigiriya</h4><p>Rock fortress &amp; cave temples</p></div></div>
+        <div class="route-item"><span class="route-dot"></span><div><h4>Kandy</h4><p>Temple of the Tooth &amp; lake walk</p></div></div>
+        <div class="route-item"><span class="route-dot"></span><div><h4>Ella</h4><p>Tea trails &amp; Nine Arch Bridge</p></div></div>
+        <div class="route-item"><span class="route-dot"></span><div><h4>Yala</h4><p>Leopard safari at dawn</p></div></div>
+        <div class="route-item"><span class="route-dot"></span><div><h4>Galle &amp; Mirissa</h4><p>Fort walls, whales &amp; the coast road home</p></div></div>
+      </div>
+      <div class="map-svg-wrap">
+        <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
+          <path d="M150 20 C 110 30, 70 70, 65 130 C 60 190, 90 220, 85 270 C 80 320, 110 360, 150 395 C 190 365, 220 315, 210 260 C 200 210, 230 175, 225 120 C 220 65, 190 25, 150 20 Z"
+                fill="rgba(217,164,65,0.06)" stroke="#D9A441" stroke-width="1.4" opacity="0.85"/>
+          <path d="M150 60 L100 150 L120 230 L108 300 L150 375 L195 290 L182 215 L200 130 Z"
+                fill="none" stroke="#F2E9D8" stroke-width="1" stroke-dasharray="4 5" opacity="0.55"/>
+          <circle cx="150" cy="60" r="4.5" fill="#D9A441"/><text x="160" y="64" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Colombo</text>
+          <circle cx="100" cy="150" r="4.5" fill="#D9A441"/><text x="55" y="145" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Sigiriya</text>
+          <circle cx="120" cy="230" r="4.5" fill="#D9A441"/><text x="128" y="234" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Kandy</text>
+          <circle cx="108" cy="300" r="4.5" fill="#D9A441"/><text x="55" y="304" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Ella</text>
+          <circle cx="150" cy="375" r="4.5" fill="#D9A441"/><text x="158" y="379" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Yala</text>
+          <circle cx="195" cy="290" r="4.5" fill="#D9A441"/><text x="203" y="294" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Galle</text>
+          <circle cx="200" cy="130" r="3.5" fill="#5C7A52"/><text x="208" y="134" fill="#a9b8b0" font-size="10" font-family="Space Mono, monospace">Trinco</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="rule"></span>Curated Journeys</div>
+      <h2>Three ways to see Sri Lanka</h2>
+      <p>Starting points, not fixed packages — every journey is adjusted to your pace, dates and interests.</p>
+    </div>
+    <div class="pkg-grid">
+
+      <div class="pkg-card">
+        <div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Rankoth_Vehera_Polonnaruwa_Sri_Lanka.jpg?width=700')"></div>
+        <div class="pkg-content">
+          <div class="days">5 Days · Small Group or Private</div>
+          <h3>Cultural Triangle Explorer</h3>
+          <ul>
+            <li>Sigiriya Rock Fortress at sunrise</li>
+            <li>Dambulla Cave Temple complex</li>
+            <li>Polonnaruwa ancient city by bicycle</li>
+            <li>Kandy Temple of the Tooth &amp; lake walk</li>
+            <li>Village cooking experience</li>
+          </ul>
+          <div class="price-row">
+            <div class="price">from $520 <span>/ per person</span></div>
+            <a href="#contact" class="arrow-link">Enquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nine_Arch_Bridge_in_Ella.jpg?width=700')"></div>
+        <div class="pkg-content">
+          <div class="days">4 Days · Scenic Rail Included</div>
+          <h3>Hill Country Tea Trail</h3>
+          <ul>
+            <li>Kandy to Ella scenic train journey</li>
+            <li>Tea factory tour &amp; tasting, Nuwara Eliya</li>
+            <li>Nine Arch Bridge &amp; Little Adam's Peak hike</li>
+            <li>Ravana Falls &amp; highland waterfalls</li>
+            <li>Boutique tea-estate bungalow stay</li>
+          </ul>
+          <div class="price-row">
+            <div class="price">from $460 <span>/ per person</span></div>
+            <a href="#contact" class="arrow-link">Enquire →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pkg-card">
+        <div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Tree_Hill.jpg?width=700')"></div>
+        <div class="pkg-content">
+          <div class="days">6 Days · Beach &amp; Wildlife</div>
+          <h3>Southern &amp; East Coast Escape</h3>
+          <ul>
+            <li>Yala National Park leopard safari</li>
+            <li>Galle Fort walking tour</li>
+            <li>Mirissa whale watching (seasonal)</li>
+            <li>Quiet-beach add-on: Kalkudah or Trincomalee</li>
+            <li>Surf lesson at Weligama</li>
+          </ul>
+          <div class="price-row">
+            <div class="price">from $610 <span>/ per person</span></div>
+            <a href="#contact" class="arrow-link">Enquire →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="rule"></span>Why Ceyway</div>
+      <h2>Planned by people who live here</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item">
+        <svg class="ic" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#C1602E" stroke-width="2"/><path d="M18 8v10l7 4" stroke="#C1602E" stroke-width="2" fill="none"/></svg>
+        <h4>Tailor-made, not templated</h4>
+        <p>Every itinerary is built around your dates, pace and interests — never a fixed bus-tour route.</p>
+      </div>
+      <div class="why-item">
+        <svg class="ic" viewBox="0 0 36 36"><path d="M18 4 L30 11 V25 L18 32 L6 25 V11 Z" fill="none" stroke="#C1602E" stroke-width="2"/></svg>
+        <h4>Local, licensed guides</h4>
+        <p>Our guides and drivers are Sri Lankan, Tourism Board licensed, and know the roads that don't show up on maps.</p>
+      </div>
+      <div class="why-item">
+        <svg class="ic" viewBox="0 0 36 36"><path d="M8 28 Q18 8 28 28" fill="none" stroke="#C1602E" stroke-width="2"/><circle cx="18" cy="15" r="3" fill="#C1602E"/></svg>
+        <h4>Support around the clock</h4>
+        <p>A direct line to your trip coordinator for the entire journey — before you land and after you leave.</p>
+      </div>
+      <div class="why-item">
+        <svg class="ic" viewBox="0 0 36 36"><path d="M18 32c8-6 12-13 12-19a12 12 0 0 0-24 0c0 6 4 13 12 19Z" fill="none" stroke="#C1602E" stroke-width="2"/><circle cx="18" cy="13" r="3.5" fill="#C1602E"/></svg>
+        <h4>Community-first travel</h4>
+        <p>We route stays and meals through family-run guesthouses and small operators wherever we can.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi-section" id="stories">
+  <div class="testi-bg" role="img" aria-label="Tea plantation in the Sri Lankan hill country"></div>
+  <div class="wrap">
+    <div class="section-head light-on-dark">
+      <div class="eyebrow" style="color:var(--gold)"><span class="rule" style="background:var(--gold)"></span>Traveller Notes</div>
+      <h2>What it's like to travel with Ceyway</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <p class="quote">Our driver-guide knew every temple, every viewpoint, and exactly when to skip the crowds. It felt like travelling with a well-connected friend, not a tour company.</p>
+        <div class="who">R. Kallman — Netherlands</div>
+      </div>
+      <div class="testi-card">
+        <p class="quote">We asked for something slower with fewer stops and Ceyway rebuilt the whole route around that. The east coast beach add-on was the highlight of the trip.</p>
+        <div class="who">A. &amp; M. Suzuki — Japan</div>
+      </div>
+      <div class="testi-card">
+        <p class="quote">Booking felt effortless and every detail — trains, park permits, hotel transfers — was sorted before we even landed in Colombo.</p>
+        <div class="who">J. Whitfield — United Kingdom</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="color:var(--gold); justify-content:center; display:flex; gap:12px; margin-bottom:18px;"><span class="rule" style="background:var(--gold)"></span>Let's Plan It</div>
+    <h2>Tell us your dates. We'll draft the route.</h2>
+    <p>Share a few details and a Ceyway trip coordinator will send a tailored itinerary within one business day.</p>
+
+    <form class="cta-form" action="https://formsubmit.co/sinthujantiruchselvam@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New trip request — Ceyway Travels website">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <div>
+        <label for="name">Full name</label>
+        <input id="name" name="Full Name" type="text" placeholder="Your name" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="Email" type="email" placeholder="you@email.com" required>
+      </div>
+      <div>
+        <label for="dates">Travel dates</label>
+        <input id="dates" name="Travel Dates" type="text" placeholder="e.g. 12–20 Dec 2026">
+      </div>
+      <div>
+        <label for="interest">Interested in</label>
+        <select id="interest" name="Interested In">
+          <option>Cultural Triangle Explorer</option>
+          <option>Hill Country Tea Trail</option>
+          <option>Southern &amp; East Coast Escape</option>
+          <option>A fully custom itinerary</option>
+        </select>
+      </div>
+      <div class="full">
+        <label for="notes">Anything else we should know?</label>
+        <textarea id="notes" name="Notes" placeholder="Group size, interests, pace, budget..."></textarea>
+      </div>
+      <button type="submit">Send my trip request</button>
+      <div class="form-note">Submissions are emailed directly to sinthujantiruchselvam@gmail.com via FormSubmit. See the note below on activating this the first time, and on switching to your official email later.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:var(--cream); margin-bottom:14px;">
+          <svg viewBox="0 0 40 40" fill="none" style="width:26px;height:26px;"><path d="M2 24C8 24 8 14 14 14C20 14 20 24 26 24C32 24 32 14 38 14" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round"/><circle cx="20" cy="8" r="3" fill="#D9A441"/></svg>
+          Ceyway Travels
+        </div>
+        <p style="font-size:0.86rem; max-width:280px; line-height:1.6;">A Sri Lankan travel agency crafting tailor-made journeys across the island — from ancient cities to quiet coastlines.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#journeys">Journeys</a></li>
+          <li><a href="#why">Why Ceyway</a></li>
+          <li><a href="#stories">Traveller Stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Guides</a></li>
+          <li><a href="#">Sustainability</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Get in touch</h5>
+        <ul>
+          <li>Batticaloa, Sri Lanka</li>
+          <li>hello@ceywaytravels.lk</li>
+          <li>+94718555553</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Ceyway Travels. All rights reserved.</span>
+      <span>Licensed by the Sri Lanka Tourism Development Authority</span>
+    </div>
+    <div class="photo-credits">
+      Photography via Wikimedia Commons contributors, used under Creative Commons licenses (CC BY-SA). Full source &amp; author details available on each image's Commons file page. Replace with your own licensed or original photography before commercial launch.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Ceyway Travels — small site interactions
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  // Mobile nav menu toggle
+  var toggle = document.getElementById('navToggle');
+  var navLinks = document.querySelector('.navlinks');
+
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', function () {
+      var isOpen = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+
+    // Close the menu after tapping a link (nice on mobile)
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // Prevent double-submitting the trip request form
+  var form = document.querySelector('.cta-form');
+  if (form) {
+    form.addEventListener('submit', function () {
+      var btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+      }
+    });
+  }
+
+});
+</script>
+</body>
+</html>
