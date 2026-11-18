@@ -4,643 +4,665 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ceyway Travels — Sri Lanka, Your Way</title>
+<meta name="description" content="Tailor-made Sri Lanka tours: cultural triangle, hill country, wildlife safaris and quiet east-coast beaches, with handpicked 4★ and 5★ stays.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Public+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#12211F;
-    --teal:#0F3D3A;
-    --teal-deep:#0A2B29;
-    --cream:#F2E9D8;
-    --cream-dim:#e3d6ba;
-    --gold:#D9A441;
-    --clay:#C1602E;
-    --leaf:#5C7A52;
-    --line: rgba(242,233,216,0.18);
+    --ink:#12211F; --teal:#0F3D3A; --teal-deep:#0A2B29;
+    --cream:#F2E9D8; --cream-dim:#e3d6ba; --paper:#fbf6ea;
+    --gold:#D9A441; --clay:#C1602E; --leaf:#5C7A52;
+    --line:rgba(242,233,216,0.18);
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'Public Sans', sans-serif;
-    font-weight:400;
-    overflow-x:hidden;
-  }
-  h1,h2,h3,.display{
-    font-family:'Fraunces', serif;
-    font-weight:500;
-    letter-spacing:-0.01em;
-    margin:0;
-  }
-  .eyebrow{
-    font-family:'Space Mono', monospace;
-    text-transform:uppercase;
-    letter-spacing:0.18em;
-    font-size:0.72rem;
-    font-weight:700;
-  }
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:'Public Sans',sans-serif;overflow-x:hidden;}
+  h1,h2,h3,h4,.display{font-family:'Fraunces',serif;font-weight:500;letter-spacing:-0.01em;margin:0;}
+  .eyebrow{font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:0.18em;font-size:0.72rem;font-weight:700;}
   a{color:inherit;text-decoration:none;}
   img{max-width:100%;display:block;}
   .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  section{padding:110px 0;}
 
-  @media (prefers-reduced-motion: reduce){
-    *{animation:none !important; transition:none !important;}
-  }
+  /* ---------- PRELOADER ---------- */
+  #preloader{position:fixed;inset:0;background:var(--ink);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .7s ease, visibility .7s ease;}
+  #preloader.done{opacity:0;visibility:hidden;}
+  #preloader svg{width:92px;height:92px;}
+  #preloader path{stroke-dasharray:90;stroke-dashoffset:90;animation:draw 1.4s ease forwards;}
+  #preloader circle{opacity:0;animation:pop .5s ease .9s forwards;}
+  #preloader span{font-family:'Fraunces',serif;color:var(--cream);font-size:1.2rem;letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fadeUp .8s ease .6s forwards;}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes pop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-  /* ---------- NAV ---------- */
-  header{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    background:rgba(18,33,31,0.92);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 32px; max-width:1180px; margin:0 auto;
-    color:var(--cream);
-  }
-  .logo{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-size:1.3rem; letter-spacing:0.01em;}
-  .logo svg{width:30px;height:30px;flex-shrink:0;}
-  .navlinks{display:flex; gap:34px; font-size:0.88rem;}
-  .navlinks a{position:relative; padding:4px 0; opacity:0.88;}
-  .navlinks a:hover{opacity:1;}
-  .navlinks a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--gold);transition:width .25s ease;}
-  .navlinks a:hover::after{width:100%;}
-  .nav-cta{
-    font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;
-    border:1px solid var(--gold); color:var(--gold); padding:9px 18px; border-radius:2px;
-    transition:background .2s ease, color .2s ease;
-  }
-  .nav-cta:hover{background:var(--gold); color:var(--ink);}
+  /* ---------- SCROLL PROGRESS ---------- */
+  #progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--clay));z-index:120;}
+
+  /* ---------- HEADER ---------- */
+  html{scroll-padding-top:96px;}
+  header{position:fixed;top:0;left:0;right:0;z-index:100;transition:transform .5s cubic-bezier(.2,.7,.2,1),background .35s,box-shadow .35s;animation:hdrIn .9s cubic-bezier(.2,.8,.2,1) 1.4s both;}
+  @keyframes hdrIn{from{transform:translateY(-100%);opacity:0}to{transform:none;opacity:1}}
+  header.hide{transform:translateY(-100%);}
+  header.scrolled{background:rgba(14,28,26,.92);backdrop-filter:blur(14px);box-shadow:0 12px 32px -20px rgba(0,0,0,.7);}
+  .topbar{overflow:hidden;max-height:46px;border-bottom:1px solid var(--line);font-size:.74rem;color:var(--cream-dim);transition:max-height .45s ease,opacity .3s ease,border-color .3s;}
+  header.scrolled .topbar{max-height:0;opacity:0;border-color:transparent;}
+  .tb-in{display:flex;justify-content:space-between;align-items:center;padding-top:11px;padding-bottom:11px;gap:20px;}
+  .tb-left,.tb-right{display:flex;gap:26px;align-items:center;}
+  .tb-in span{display:inline-flex;align-items:center;gap:8px;}
+  .tb-in a{transition:color .2s;}.tb-in a:hover{color:var(--gold);}
+  .live i{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:ping2 2s ease-out infinite;}
+  @keyframes ping2{0%{box-shadow:0 0 0 0 rgba(74,222,128,.7)}100%{box-shadow:0 0 0 9px rgba(74,222,128,0)}}
+  .nav{position:relative;display:flex;align-items:center;justify-content:space-between;padding:16px 32px;max-width:1180px;margin:0 auto;color:var(--cream);transition:padding .35s;}
+  header.scrolled .nav{padding:10px 32px;}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-size:1.3rem;}
+  .logo svg{width:32px;height:32px;flex-shrink:0;}
+  .logo svg path{stroke-dasharray:90;stroke-dashoffset:0;}
+  .logo:hover svg path{animation:logoWave 1.1s ease;}
+  @keyframes logoWave{0%{stroke-dashoffset:0}45%{stroke-dashoffset:90}100%{stroke-dashoffset:0}}
+  .navlinks{position:relative;display:flex;gap:2px;font-size:.88rem;}
+  .nl{position:relative;padding:12px 16px;opacity:.86;display:inline-flex;align-items:center;gap:6px;transition:opacity .2s,color .2s;}
+  .nl:hover,.nl.active{opacity:1;}
+  .nl.active{color:var(--gold);}
+  .caret{width:8px;height:8px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .3s;}
+  .has-mega:hover .caret{transform:rotate(225deg) translateY(-2px);}
+  .ind{position:absolute;bottom:4px;height:2px;border-radius:2px;background:var(--gold);left:0;width:0;transition:left .5s cubic-bezier(.2,.8,.2,1),width .5s cubic-bezier(.2,.8,.2,1);}
+  .has-mega{position:static;}
+  .mega{position:absolute;top:100%;left:50%;width:min(800px,92vw);background:var(--paper);color:var(--ink);border-radius:6px;padding:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;box-shadow:0 40px 70px -30px rgba(0,0,0,.65);border-top:3px solid var(--gold);opacity:0;visibility:hidden;transform:translateX(-50%) translateY(14px);transition:opacity .3s,transform .35s cubic-bezier(.2,.8,.2,1),visibility .3s;}
+  .mega::before{content:"";position:absolute;top:-34px;left:0;right:0;height:34px;}
+  .has-mega:hover .mega,.has-mega:focus-within .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);}
+  .mega a{display:flex;align-items:center;gap:12px;padding:10px;border-radius:4px;opacity:0;transform:translateY(10px);transition:background .2s,opacity .4s,transform .4s;transition-delay:0s,calc(var(--i)*.035s + .05s),calc(var(--i)*.035s + .05s);}
+  .has-mega:hover .mega a,.has-mega:focus-within .mega a{opacity:1;transform:none;}
+  .mega a:hover{background:#efe4c8;}
+  .mega img{width:54px;height:54px;object-fit:cover;border-radius:4px;flex-shrink:0;}
+  .mega b{display:block;font-family:'Fraunces',serif;font-weight:500;font-size:.95rem;line-height:1.2;}
+  .mega small{display:block;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--clay);margin-top:3px;}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .nav-phone{font-size:.82rem;color:var(--cream-dim);display:flex;align-items:center;gap:8px;transition:color .2s;}
+  .nav-phone:hover{color:var(--gold);}
+  .nav-cta{position:relative;overflow:hidden;background:var(--gold);color:var(--ink);font-weight:600;font-size:.82rem;padding:12px 22px;border-radius:40px;transition:box-shadow .25s;display:inline-block;}
+  .nav-cta::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;}
+  .nav-cta:hover{box-shadow:0 10px 24px rgba(217,164,65,.35);}
+  .burger{display:none;position:relative;width:44px;height:44px;background:none;border:0;cursor:pointer;z-index:101;}
+  .burger i{display:block;position:absolute;left:10px;width:24px;height:2px;background:var(--cream);transition:transform .4s,opacity .3s,top .4s;}
+  .burger i:nth-child(1){top:15px}.burger i:nth-child(2){top:22px}.burger i:nth-child(3){top:29px}
+  .burger.open i:nth-child(1){top:22px;transform:rotate(45deg)}
+  .burger.open i:nth-child(2){opacity:0}
+  .burger.open i:nth-child(3){top:22px;transform:rotate(-45deg)}
+  .mobile-menu{position:fixed;inset:0;z-index:99;background:var(--ink);display:flex;flex-direction:column;justify-content:center;padding:0 12vw;clip-path:circle(0 at calc(100% - 40px) 36px);pointer-events:none;transition:clip-path .8s cubic-bezier(.7,0,.2,1);}
+  .mobile-menu.open{clip-path:circle(160% at calc(100% - 40px) 36px);pointer-events:auto;}
+  .mobile-menu a{font-family:'Fraunces',serif;font-size:2rem;color:var(--cream);padding:10px 0;border-bottom:1px solid var(--line);opacity:0;transform:translateY(26px);transition:opacity .5s,transform .5s,color .2s;transition-delay:0s;}
+  .mobile-menu.open a{opacity:1;transform:none;transition-delay:calc(var(--i)*.07s + .35s);}
+  .mobile-menu a:hover{color:var(--gold);}
 
   /* ---------- HERO ---------- */
-  .hero{
-    position:relative;
-    min-height:100vh;
-    color:var(--cream);
-    display:flex;
-    align-items:center;
-    padding-top:90px;
-    overflow:hidden;
-    isolation:isolate;
-  }
-  .hero-bg{
-    position:absolute; inset:0; z-index:-2;
-    background-image:
-      linear-gradient(180deg, rgba(10,20,19,0.55) 0%, rgba(10,20,19,0.75) 55%, var(--ink) 100%),
-      url('https://commons.wikimedia.org/wiki/Special:FilePath/Stilt_fishing_Sri_Lanka_(29445683784).jpg?width=1800');
-    background-size:cover;
-    background-position:center 38%;
-  }
-  .hero-rays{position:absolute; inset:0; opacity:0.35; pointer-events:none; z-index:-1;}
-  .hero-grid{
-    display:grid; grid-template-columns: 1.15fr 0.85fr; gap:40px; align-items:center;
-    width:100%; position:relative; z-index:2;
-  }
-  .hero-eyebrow{color:var(--gold); margin-bottom:22px; display:flex; align-items:center; gap:12px;}
-  .hero-eyebrow .rule{width:38px;height:1px;background:var(--gold);display:inline-block;}
-  .hero h1{
-    font-size:clamp(2.6rem, 5.2vw, 4.6rem);
-    line-height:1.02;
-    color:var(--cream);
-    text-shadow:0 2px 24px rgba(0,0,0,0.35);
-  }
-  .hero h1 em{font-style:italic; color:var(--gold); font-weight:500;}
-  .hero p.lede{
-    max-width:480px; margin-top:26px; font-size:1.08rem; line-height:1.65; color:var(--cream-dim);
-  }
-  .hero-ctas{display:flex; gap:16px; margin-top:38px; flex-wrap:wrap;}
-  .btn-primary{
-    background:var(--gold); color:var(--ink); padding:15px 28px; border-radius:2px;
-    font-weight:600; font-size:0.95rem; display:inline-flex; align-items:center; gap:10px;
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(217,164,65,0.28);}
-  .btn-ghost{
-    border:1px solid var(--line); color:var(--cream); padding:15px 28px; border-radius:2px;
-    font-weight:500; font-size:0.95rem; transition:border-color .2s ease, background .2s ease;
-    backdrop-filter:blur(2px);
-  }
-  .btn-ghost:hover{border-color:var(--cream); background:rgba(242,233,216,0.08);}
-  .hero-stats{display:flex; gap:34px; margin-top:56px; flex-wrap:wrap;}
-  .hero-stats div{border-left:1px solid var(--line); padding-left:14px;}
-  .hero-stats .num{font-family:'Fraunces',serif; font-size:1.7rem; color:var(--gold);}
-  .hero-stats .lbl{font-family:'Space Mono',monospace; font-size:0.66rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--cream-dim); margin-top:4px;}
+  .hero{position:relative;min-height:100vh;color:var(--cream);display:flex;align-items:center;padding:110px 0 80px;overflow:hidden;isolation:isolate;}
+  .hero-bg{position:absolute;inset:-6% 0;z-index:-3;will-change:transform;background:var(--ink);}
+  .hero-bg .slide{position:absolute;inset:0;background-size:cover;background-position:center 40%;opacity:0;transition:opacity 1.8s ease;animation:kb 20s ease-in-out infinite alternate;}
+  .hero-bg .slide.on{opacity:1;}
+  @keyframes kb{from{transform:scale(1)}to{transform:scale(1.14) translate(-1.5%,-1%)}}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,19,.55) 0%,rgba(10,20,19,.72) 60%,var(--ink) 100%);}
+  .clouds{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+  .clouds i{position:absolute;left:-40%;width:460px;height:90px;border-radius:50%;background:rgba(242,233,216,.09);filter:blur(34px);animation:cloud 70s linear infinite;}
+  .clouds i:nth-child(1){top:14%}.clouds i:nth-child(2){top:34%;animation-duration:95s;animation-delay:-30s;width:620px}.clouds i:nth-child(3){top:6%;animation-duration:80s;animation-delay:-55s}
+  @keyframes cloud{to{transform:translateX(190vw)}}
+  .dust-wrap{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+  .dust{position:absolute;bottom:-12px;left:var(--x);width:var(--s);height:var(--s);border-radius:50%;background:rgba(217,164,65,.75);box-shadow:0 0 8px rgba(217,164,65,.8);opacity:0;animation:rise var(--t) linear infinite;animation-delay:var(--dl);}
+  @keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.9}90%{opacity:.6}100%{transform:translateY(-105vh) translateX(var(--dx));opacity:0}}
+  .slide-nav{position:absolute;right:32px;bottom:30px;display:flex;align-items:center;gap:10px;z-index:3;}
+  .slide-nav button{width:38px;height:18px;background:none;border:0;cursor:pointer;padding:0;display:flex;align-items:center;}
+  .slide-nav button i{display:block;width:100%;height:2px;background:rgba(242,233,216,.3);position:relative;overflow:hidden;}
+  .slide-nav button i::after{content:"";position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;}
+  .slide-nav button.active i::after{animation:fill 7s linear forwards;}
+  @keyframes fill{to{transform:scaleX(1)}}
+  #slideCap{font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-left:10px;min-width:190px;}
+  .sun{position:absolute;z-index:-2;top:12%;right:8%;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(217,164,65,.55),rgba(217,164,65,0) 68%);animation:sunpulse 6s ease-in-out infinite;}
+  @keyframes sunpulse{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.18);opacity:1}}
+  .hero-rays{position:absolute;inset:0;opacity:.35;pointer-events:none;z-index:-1;}
+  .hero-rays line{animation:rayshift 7s ease-in-out infinite alternate;}
+  .hero-rays line:nth-child(2n){animation-delay:-2s}
+  .hero-rays line:nth-child(3n){animation-delay:-4s}
+  @keyframes rayshift{from{stroke-opacity:.05}to{stroke-opacity:.22}}
+  .birds{position:absolute;z-index:-1;top:20%;left:-10%;width:100%;pointer-events:none;}
+  .bird{position:absolute;width:30px;opacity:.7;animation:fly 22s linear infinite;}
+  .bird:nth-child(2){top:50px;animation-duration:28s;animation-delay:-8s;width:22px}
+  .bird:nth-child(3){top:110px;animation-duration:34s;animation-delay:-16s;width:18px}
+  @keyframes fly{from{transform:translateX(0) translateY(0)}50%{transform:translateX(60vw) translateY(-30px)}to{transform:translateX(125vw) translateY(10px)}}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;}
+  .hero-eyebrow{color:var(--gold);margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+  .hero-eyebrow .rule{width:38px;height:1px;background:var(--gold);}
+  .hero h1{font-size:clamp(2.7rem,5.6vw,4.9rem);line-height:1.02;text-shadow:0 2px 24px rgba(0,0,0,.35);}
+  .hero h1 .w{display:inline-block;opacity:0;transform:translateY(40px);animation:wordIn .9s cubic-bezier(.2,.8,.2,1) forwards;}
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  @keyframes wordIn{to{opacity:1;transform:none}}
+  .lede{max-width:500px;margin-top:26px;font-size:1.08rem;line-height:1.65;color:var(--cream-dim);}
+  .typed-line{margin-top:18px;font-family:'Space Mono',monospace;font-size:.85rem;color:var(--gold);min-height:1.4em;letter-spacing:.04em;}
+  .typed-line::after{content:"▍";animation:blink 1s steps(1) infinite;margin-left:2px;}
+  @keyframes blink{50%{opacity:0}}
+  .hero-ctas{display:flex;gap:16px;margin-top:34px;flex-wrap:wrap;}
+  .btn-primary{background:var(--gold);color:var(--ink);padding:15px 28px;border-radius:2px;font-weight:600;font-size:.95rem;display:inline-flex;align-items:center;gap:10px;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
+  .btn-primary::before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:shine 3.5s ease-in-out infinite;}
+  @keyframes shine{0%,60%{left:-80%}100%{left:140%}}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(217,164,65,.3);}
+  .btn-ghost{border:1px solid var(--line);color:var(--cream);padding:15px 28px;border-radius:2px;font-weight:500;font-size:.95rem;transition:border-color .2s,background .2s;backdrop-filter:blur(2px);}
+  .btn-ghost:hover{border-color:var(--cream);background:rgba(242,233,216,.08);}
+  .hero-stats{display:flex;gap:34px;margin-top:50px;flex-wrap:wrap;}
+  .hero-stats>div{border-left:1px solid var(--line);padding-left:14px;}
+  .hero-stats .num{font-family:'Fraunces',serif;font-size:1.8rem;color:var(--gold);}
+  .hero-stats .lbl{font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-top:4px;}
+  .hero-visual{position:relative;display:flex;justify-content:center;animation:floaty 7s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+  .arch-frame{width:100%;max-width:420px;aspect-ratio:3/4;border:1.5px solid var(--gold);border-radius:210px 210px 8px 8px;padding:14px;position:relative;background:linear-gradient(180deg,rgba(217,164,65,.06),transparent 40%);}
+  .arch-inner{width:100%;height:100%;border:1px solid rgba(242,233,216,.35);border-radius:196px 196px 4px 4px;overflow:hidden;background-image:linear-gradient(180deg,rgba(10,43,41,.05) 40%,rgba(10,43,41,.65) 100%),url('https://commons.wikimedia.org/wiki/Special:FilePath/Sigiriya.jpg?width=900');background-size:cover;background-position:center;}
+  .stamp-badge{position:absolute;bottom:-26px;left:-26px;width:108px;height:108px;border-radius:50%;background:var(--clay);color:var(--cream);display:flex;align-items:center;justify-content:center;text-align:center;border:2px dashed rgba(242,233,216,.5);font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;line-height:1.4;padding:8px;box-shadow:0 12px 30px rgba(0,0,0,.35);animation:spin 28s linear infinite;}
+  .stamp-badge span{display:block;animation:spin 28s linear infinite reverse;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .scroll-hint i{width:1px;height:34px;background:linear-gradient(var(--gold),transparent);animation:drip 2s ease-in-out infinite;}
+  @keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
-  /* arch + stamp illustration */
-  .hero-visual{position:relative; display:flex; justify-content:center;}
-  .arch-frame{
-    width:100%; max-width:420px; aspect-ratio: 3/4;
-    border:1.5px solid var(--gold);
-    border-radius:210px 210px 8px 8px;
-    padding:14px;
-    position:relative;
-    background:linear-gradient(180deg, rgba(217,164,65,0.06), transparent 40%);
-  }
-  .arch-inner{
-    width:100%; height:100%;
-    border:1px solid rgba(242,233,216,0.35);
-    border-radius:196px 196px 4px 4px;
-    overflow:hidden;
-    background-image:
-      linear-gradient(180deg, rgba(10,43,41,0.05) 40%, rgba(10,43,41,0.65) 100%),
-      url('https://commons.wikimedia.org/wiki/Special:FilePath/Sigiriya.jpg?width=900');
-    background-size:cover;
-    background-position:center;
-  }
-  .stamp-badge{
-    position:absolute; bottom:-26px; left:-26px;
-    width:104px; height:104px; border-radius:50%;
-    background:var(--clay); color:var(--cream);
-    display:flex; align-items:center; justify-content:center; text-align:center;
-    border:2px dashed rgba(242,233,216,0.5);
-    font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.05em; text-transform:uppercase;
-    line-height:1.4; padding:8px;
-    box-shadow:0 12px 30px rgba(0,0,0,0.35);
-  }
+  /* ---------- MARQUEE ---------- */
+  .marquee{background:var(--gold);color:var(--ink);overflow:hidden;padding:14px 0;border-block:1px solid rgba(0,0,0,.15);}
+  .marquee-track{display:flex;gap:46px;width:max-content;animation:marq 38s linear infinite;font-family:'Fraunces',serif;font-size:1.2rem;font-style:italic;white-space:nowrap;}
+  .marquee:hover .marquee-track{animation-play-state:paused;}
+  .marquee-track span::after{content:"✦";margin-left:46px;font-style:normal;font-size:.8rem;}
+  @keyframes marq{to{transform:translateX(-50%)}}
 
-  /* ---------- SECTION SHARED ---------- */
-  section{padding:120px 0;}
-  .section-head{max-width:640px; margin-bottom:64px;}
-  .section-head .eyebrow{color:var(--clay); margin-bottom:16px; display:flex; align-items:center; gap:12px;}
-  .section-head .eyebrow .rule{width:38px;height:1px;background:var(--clay);display:inline-block;}
-  .section-head h2{font-size:clamp(2rem,3.4vw,2.9rem); line-height:1.08;}
-  .section-head p{margin-top:18px; font-size:1.05rem; line-height:1.6; color:#3c4a44; max-width:540px;}
-  .light-on-dark .section-head p{color:var(--cream-dim);}
+  /* ---------- SHARED ---------- */
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head .eyebrow{color:var(--clay);margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+  .section-head .eyebrow .rule{width:38px;height:1px;background:var(--clay);}
+  .section-head h2{font-size:clamp(2rem,3.4vw,2.9rem);line-height:1.08;}
+  .section-head p{margin-top:18px;font-size:1.05rem;line-height:1.6;color:#3c4a44;max-width:540px;}
+  .light-on-dark .section-head p,.light-on-dark p{color:var(--cream-dim);}
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.left{transform:translateX(-40px)}.reveal.left.in{transform:none}
+  .reveal.right{transform:translateX(40px)}.reveal.right.in{transform:none}
+  .tilt{transform-style:preserve-3d;transition:transform .2s ease;will-change:transform;}
 
-  /* ---------- DESTINATIONS ---------- */
-  .dest-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:2px;
-    background:var(--ink);
-    border:1px solid var(--ink);
-  }
-  .dest-card{
-    background:var(--cream); position:relative;
-    display:flex; flex-direction:column;
-    overflow:hidden; transition:transform .3s ease;
-  }
-  .dest-photo{
-    height:220px; background-size:cover; background-position:center;
-    position:relative;
-  }
-  .dest-photo::after{
-    content:""; position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(18,33,31,0) 55%, rgba(18,33,31,0.85) 100%);
-  }
-  .dest-photo .num{
-    position:absolute; top:16px; left:18px; z-index:2;
-    font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--cream); letter-spacing:0.1em;
-    background:rgba(18,33,31,0.55); padding:4px 9px; border-radius:2px;
-  }
-  .dest-body{padding:22px 26px 28px;}
-  .dest-body h3{font-size:1.3rem; margin-bottom:8px;}
-  .dest-body p{font-size:0.92rem; color:#4a5951; line-height:1.55; margin:0;}
-  .dest-card:hover{transform:translateY(-3px);}
-  .dest-card:hover .dest-photo{filter:saturate(1.15);}
+  /* ---------- EXPLORER (destinations + hotels) ---------- */
+  .explorer{background:var(--paper);}
+  .tabs{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--gold) transparent;}
+  .tab{flex-shrink:0;background:transparent;border:1px solid #cfbf98;color:var(--ink);padding:11px 18px;border-radius:40px;font-family:'Public Sans',sans-serif;font-size:.86rem;font-weight:500;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px;}
+  .tab b{font-family:'Space Mono',monospace;font-size:.66rem;color:var(--clay);}
+  .tab:hover{border-color:var(--gold);transform:translateY(-2px);}
+  .tab.active{background:var(--ink);color:var(--cream);border-color:var(--ink);}
+  .tab.active b{color:var(--gold);}
+  .panel{display:grid;grid-template-columns:.95fr 1.05fr;gap:44px;margin-top:20px;align-items:start;}
+  .panel-media{position:sticky;top:90px;}
+  .panel-photo{aspect-ratio:4/3.2;border-radius:6px;background-size:cover;background-position:center;position:relative;overflow:hidden;box-shadow:0 24px 50px -24px rgba(18,33,31,.5);animation:photoIn .8s ease;}
+  @keyframes photoIn{from{opacity:0;transform:scale(1.06)}to{opacity:1;transform:none}}
+  .panel-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(18,33,31,.8));}
+  .panel-photo .cap{position:absolute;left:20px;bottom:16px;z-index:2;color:var(--cream);font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;}
+  .panel-info h3{font-size:2rem;margin:22px 0 10px;}
+  .panel-info p{color:#42504a;line-height:1.65;margin:0 0 18px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;padding:6px 11px;background:#efe4c8;border-radius:30px;color:#5a4a1e;}
+  .chip.best{background:var(--leaf);color:#fff;}
+  .hotels-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+  .hotels-head h4{font-size:1.3rem;}
+  .filters{display:flex;gap:6px;}
+  .filters button{border:1px solid #cfbf98;background:transparent;border-radius:30px;padding:6px 14px;font-size:.78rem;cursor:pointer;font-family:'Space Mono',monospace;transition:all .2s;}
+  .filters button.active{background:var(--gold);border-color:var(--gold);}
+  .hotel-list{display:flex;flex-direction:column;gap:12px;}
+  .hotel{display:grid;grid-template-columns:1fr auto;gap:6px 16px;background:#fff;border:1px solid #e6dcc2;border-left:4px solid var(--gold);border-radius:4px;padding:16px 18px;opacity:0;transform:translateX(24px);animation:hotelIn .6s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d,0s);transition:box-shadow .25s,transform .25s;}
+  .hotel.s4{border-left-color:var(--leaf);}
+  .hotel:hover{box-shadow:0 14px 30px -16px rgba(18,33,31,.45);transform:translateX(0) translateY(-2px);}
+  @keyframes hotelIn{to{opacity:1;transform:none}}
+  .hotel h5{margin:0;font-family:'Fraunces',serif;font-size:1.08rem;font-weight:500;}
+  .stars{color:var(--gold);letter-spacing:2px;font-size:.95rem;white-space:nowrap;text-align:right;}
+  .hotel.s4 .stars{color:var(--leaf);}
+  .hotel .meta{font-size:.82rem;color:#5b6a63;}
+  .hotel a{font-size:.78rem;font-weight:600;color:var(--clay);text-align:right;}
+  .hotel a:hover{text-decoration:underline;}
+  .disclaimer{font-size:.76rem;color:#6d7a73;margin-top:16px;line-height:1.5;}
 
-  /* ---------- MAP / SIGNATURE ---------- */
-  .map-section{background:var(--ink); color:var(--cream);}
-  .map-layout{display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;}
-  .route-list{display:flex; flex-direction:column; gap:0;}
-  .route-item{
-    display:flex; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
-    align-items:baseline;
-  }
+
+  /* ---------- HOTEL PHOTO CARDS ---------- */
+  .hotel{grid-template-columns:140px 1fr auto;gap:0 16px;padding:0;overflow:hidden;align-items:stretch;}
+  .hphoto{position:relative;overflow:hidden;min-height:108px;background:#d9ccaa;}
+  .hphoto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1);}
+  .hotel:hover .hphoto img{transform:scale(1.14);}
+  .hphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(0,0,0,.18));}
+  .hbadge{position:absolute;left:8px;top:8px;z-index:2;background:rgba(18,33,31,.8);color:var(--gold);font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.08em;padding:3px 8px;border-radius:30px;backdrop-filter:blur(4px);}
+  .hotel.s4 .hbadge{color:#b8d4ae;}
+  .hbody{padding:14px 0;display:flex;flex-direction:column;justify-content:center;gap:4px;}
+  .hright{padding:14px 18px 14px 0;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;}
+  .hotel .stars{animation:twinkle 3.5s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{filter:none}50%{filter:brightness(1.35) drop-shadow(0 0 4px rgba(217,164,65,.6))}}
+  .photo-note{font-size:.76rem;color:#6d7a73;margin-top:10px;}
+
+  /* ---------- TESTIMONIAL AVATARS ---------- */
+  .who-row{display:flex;align-items:center;gap:14px;margin-top:20px;}
+  .who-row .who{margin-top:0;}
+  .avatar{width:48px;height:48px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--gold),var(--clay));color:var(--ink);font-family:'Fraunces',serif;font-weight:600;font-size:1rem;background-size:cover;background-position:center;border:2px solid rgba(242,233,216,.55);transition:transform .4s;}
+  .avatar.has{color:transparent;}
+  .testi-card:hover .avatar{transform:scale(1.1) rotate(-6deg);}
+
+  /* ---------- HEADING ANIMATION ---------- */
+  .section-head h2 .sw{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--i)*.07s + .2s);}
+  .section-head.in h2 .sw{opacity:1;transform:none;}
+  .section-head h2::after{content:"";display:block;height:2px;width:0;background:var(--gold);margin-top:20px;transition:width 1.1s cubic-bezier(.2,.8,.2,1) .7s;}
+  .section-head.in h2::after{width:84px;}
+
+  /* ---------- ROUTE ---------- */
+  .map-section{background:var(--ink);color:var(--cream);}
+  .map-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:60px;align-items:center;}
+  .route-item{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline;}
   .route-item:first-child{padding-top:0;}
-  .route-dot{
-    width:9px; height:9px; border-radius:50%; background:var(--gold); flex-shrink:0;
-    margin-top:6px;
-  }
-  .route-item h4{font-family:'Fraunces',serif; font-size:1.12rem; font-weight:500; margin-bottom:4px;}
-  .route-item p{margin:0; font-size:0.88rem; color:var(--cream-dim); line-height:1.5;}
-  .map-svg-wrap{display:flex; justify-content:center;}
-  .map-svg-wrap svg{width:100%; max-width:420px; height:auto;}
+  .route-dot{width:9px;height:9px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;box-shadow:0 0 0 0 rgba(217,164,65,.6);}
+  .route-item.in .route-dot{animation:ping 2.4s ease-out infinite;}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(217,164,65,.55)}100%{box-shadow:0 0 0 14px rgba(217,164,65,0)}}
+  .route-item h4{font-size:1.12rem;margin-bottom:4px;}
+  .route-item p{margin:0;font-size:.88rem;color:var(--cream-dim);line-height:1.5;}
+  .map-svg-wrap{display:flex;justify-content:center;}
+  .map-svg-wrap svg{width:100%;max-width:420px;height:auto;overflow:visible;}
+  #routePath{stroke-dasharray:1;stroke-dashoffset:1;}
+  .map-svg-wrap.in #routePath{animation:routeDraw 5s ease forwards;}
+  @keyframes routeDraw{to{stroke-dashoffset:0}}
+  .mpin{opacity:0;transform-box:fill-box;transform-origin:center;}
+  .map-svg-wrap.in .mpin{animation:pinPop .5s ease forwards;animation-delay:var(--pd);}
+  @keyframes pinPop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
 
   /* ---------- PACKAGES ---------- */
-  .pkg-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
-  .pkg-card{
-    border:1px solid #d7c9a6; border-radius:4px; overflow:hidden; background:#fbf6ea;
-    display:flex; flex-direction:column; height:100%;
-    transition:border-color .25s ease, transform .25s ease;
-  }
-  .pkg-card:hover{border-color:var(--gold); transform:translateY(-4px);}
-  .pkg-photo{height:170px; background-size:cover; background-position:center;}
-  .pkg-content{padding:28px 28px 30px; display:flex; flex-direction:column; flex-grow:1;}
-  .pkg-card .days{font-family:'Space Mono',monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--clay); margin-bottom:16px;}
-  .pkg-card h3{font-size:1.5rem; margin-bottom:14px;}
-  .pkg-card ul{list-style:none; padding:0; margin:0 0 28px; flex-grow:1;}
-  .pkg-card li{
-    font-size:0.9rem; color:#42504a; padding:9px 0; border-top:1px solid #e6dcc2;
-    display:flex; gap:10px;
-  }
-  .pkg-card li::before{content:"—"; color:var(--gold); flex-shrink:0;}
-  .pkg-card .price-row{display:flex; align-items:baseline; justify-content:space-between; margin-top:auto;}
-  .pkg-card .price{font-family:'Fraunces',serif; font-size:1.3rem;}
-  .pkg-card .price span{font-family:'Space Mono',monospace; font-size:0.68rem; color:#7a8880;}
-  .pkg-card .arrow-link{font-size:0.85rem; font-weight:600; color:var(--clay); display:flex; align-items:center; gap:6px;}
+  .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;perspective:1200px;}
+  .pkg-card{border:1px solid #d7c9a6;border-radius:4px;overflow:hidden;background:var(--paper);display:flex;flex-direction:column;height:100%;transition:border-color .25s,box-shadow .3s;}
+  .pkg-card:hover{border-color:var(--gold);box-shadow:0 26px 40px -24px rgba(18,33,31,.55);}
+  .pkg-photo{height:180px;background-size:cover;background-position:center;transition:transform .8s ease;}
+  .pkg-card:hover .pkg-photo{transform:scale(1.07);}
+  .pkg-photo-wrap{overflow:hidden;}
+  .pkg-content{padding:28px 28px 30px;display:flex;flex-direction:column;flex-grow:1;}
+  .pkg-card .days{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--clay);margin-bottom:14px;}
+  .pkg-card h3{font-size:1.5rem;margin-bottom:14px;}
+  .pkg-card ul{list-style:none;padding:0;margin:0 0 26px;flex-grow:1;}
+  .pkg-card li{font-size:.9rem;color:#42504a;padding:9px 0;border-top:1px solid #e6dcc2;display:flex;gap:10px;}
+  .pkg-card li::before{content:"—";color:var(--gold);}
+  .price-row{display:flex;align-items:baseline;justify-content:space-between;margin-top:auto;}
+  .price{font-family:'Fraunces',serif;font-size:1.3rem;}
+  .price span{font-family:'Space Mono',monospace;font-size:.68rem;color:#7a8880;}
+  .arrow-link{font-size:.85rem;font-weight:600;color:var(--clay);}
+  .arrow-link:hover{letter-spacing:.02em;}
 
-  /* ---------- WHY US ---------- */
-  .why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; border-top:1px solid #d7c9a6;}
-  .why-item{padding:34px 26px 34px 0; border-bottom:1px solid #d7c9a6;}
-  .why-item + .why-item{border-left:1px solid #d7c9a6; padding-left:26px;}
-  .why-item .ic{width:36px;height:36px; margin-bottom:18px;}
-  .why-item h4{font-family:'Fraunces',serif; font-size:1.08rem; margin-bottom:10px;}
-  .why-item p{font-size:0.87rem; color:#4a5951; line-height:1.55; margin:0;}
+  /* ---------- WHY ---------- */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #d7c9a6;}
+  .why-item{padding:34px 26px 34px 0;border-bottom:1px solid #d7c9a6;transition:background .3s;}
+  .why-item+.why-item{border-left:1px solid #d7c9a6;padding-left:26px;}
+  .why-item:hover{background:rgba(217,164,65,.08);}
+  .why-item .ic{width:38px;height:38px;margin-bottom:18px;transition:transform .5s;}
+  .why-item:hover .ic{transform:rotate(12deg) scale(1.15);}
+  .why-item h4{font-size:1.08rem;margin-bottom:10px;}
+  .why-item p{font-size:.87rem;color:#4a5951;line-height:1.55;margin:0;}
 
   /* ---------- TESTIMONIALS ---------- */
-  .testi-section{
-    position:relative; color:var(--cream); isolation:isolate;
-  }
-  .testi-bg{
-    position:absolute; inset:0; z-index:-1;
-    background-image:
-      linear-gradient(180deg, rgba(15,61,58,0.88), rgba(15,61,58,0.94)),
-      url('https://commons.wikimedia.org/wiki/Special:FilePath/Tea_states_in_srilanka.jpg?width=1600');
-    background-size:cover; background-position:center;
-  }
-  .testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:36px;}
-  .testi-card{border-top:2px solid var(--gold); padding-top:22px;}
-  .testi-card p.quote{font-family:'Fraunces',serif; font-style:italic; font-size:1.12rem; line-height:1.55; color:var(--cream);}
-  .testi-card .who{margin-top:20px; font-family:'Space Mono',monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold);}
+  .testi-section{position:relative;color:var(--cream);isolation:isolate;}
+  .testi-bg{position:absolute;inset:0;z-index:-1;background-image:linear-gradient(180deg,rgba(15,61,58,.88),rgba(15,61,58,.94)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Tea_states_in_srilanka.jpg?width=1600');background-size:cover;background-position:center;background-attachment:fixed;}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;}
+  .testi-card{border-top:2px solid var(--gold);padding-top:22px;}
+  .quote{font-family:'Fraunces',serif;font-style:italic;font-size:1.12rem;line-height:1.55;}
+  .who{margin-top:20px;font-family:'Space Mono',monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--gold);}
 
-  /* ---------- CTA / CONTACT ---------- */
-  .cta-section{
-    background:linear-gradient(180deg, var(--ink), var(--teal-deep));
-    color:var(--cream);
-    text-align:center;
-    position:relative;
-  }
-  .cta-section h2{font-size:clamp(2.2rem,4.5vw,3.4rem); max-width:760px; margin:0 auto;}
-  .cta-section p{max-width:520px; margin:20px auto 0; color:var(--cream-dim); font-size:1.05rem; line-height:1.6;}
-  .cta-form{
-    max-width:640px; margin:48px auto 0; display:grid; grid-template-columns:1fr 1fr; gap:14px;
-    text-align:left;
-  }
+  /* ---------- CTA ---------- */
+  .cta-section{background:linear-gradient(180deg,var(--ink),var(--teal-deep));color:var(--cream);text-align:center;}
+  .cta-section h2{font-size:clamp(2.2rem,4.5vw,3.4rem);max-width:760px;margin:0 auto;}
+  .cta-section>.wrap>p{max-width:520px;margin:20px auto 0;color:var(--cream-dim);font-size:1.05rem;line-height:1.6;}
+  .cta-form{max-width:640px;margin:44px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left;}
   .cta-form .full{grid-column:1/-1;}
-  .cta-form label{font-family:'Space Mono',monospace; font-size:0.66rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--cream-dim); display:block; margin-bottom:8px;}
-  .cta-form input, .cta-form select, .cta-form textarea{
-    width:100%; background:transparent; border:1px solid var(--line); color:var(--cream);
-    padding:12px 14px; border-radius:2px; font-family:'Public Sans',sans-serif; font-size:0.92rem;
-  }
-  .cta-form input::placeholder, .cta-form textarea::placeholder{color:#7d8b85;}
-  .cta-form textarea{resize:vertical; min-height:90px;}
+  .cta-form label{font-family:'Space Mono',monospace;font-size:.66rem;text-transform:uppercase;letter-spacing:.08em;color:var(--cream-dim);display:block;margin-bottom:8px;}
+  .cta-form input,.cta-form select,.cta-form textarea{width:100%;background:transparent;border:1px solid var(--line);color:var(--cream);padding:12px 14px;border-radius:2px;font-family:'Public Sans',sans-serif;font-size:.92rem;transition:border-color .2s, box-shadow .2s;}
+  .cta-form input:focus,.cta-form select:focus,.cta-form textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(217,164,65,.18);}
+  .cta-form input::placeholder,.cta-form textarea::placeholder{color:#7d8b85;}
+  .cta-form textarea{resize:vertical;min-height:90px;}
   .cta-form select option{background:var(--ink);}
-  .cta-form button{
-    grid-column:1/-1; margin-top:6px; background:var(--gold); color:var(--ink); border:none;
-    padding:16px; font-weight:600; font-size:0.95rem; border-radius:2px; cursor:pointer;
-    transition:transform .2s ease;
-  }
+  .cta-form button{grid-column:1/-1;margin-top:6px;background:var(--gold);color:var(--ink);border:none;padding:16px;font-weight:600;font-size:.95rem;border-radius:2px;cursor:pointer;transition:transform .2s;}
   .cta-form button:hover{transform:translateY(-2px);}
-  .form-note{grid-column:1/-1; font-size:0.78rem; color:#7d8b85; margin-top:2px;}
+  .form-note{grid-column:1/-1;font-size:.78rem;color:#7d8b85;}
+
+  /* ---------- CERTIFICATES ---------- */
+  .certs{background:var(--teal-deep);color:var(--cream);padding:70px 0;border-top:1px solid var(--line);}
+  .certs h3{text-align:center;font-size:1.6rem;}
+  .certs .sub{text-align:center;font-size:.9rem;color:var(--cream-dim);margin:10px auto 36px;max-width:520px;}
+  .cert-row{display:flex;justify-content:center;flex-wrap:wrap;gap:22px;}
+  .cert{width:230px;border:1px solid var(--line);border-radius:6px;padding:22px 18px;text-align:center;background:rgba(242,233,216,.04);position:relative;overflow:hidden;transition:transform .3s,border-color .3s;}
+  .cert::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(217,164,65,.22),transparent);transform:skewX(-20deg);transition:left .9s ease;}
+  .cert:hover{transform:translateY(-6px);border-color:var(--gold);}
+  .cert:hover::after{left:160%;}
+  .cert .seal{width:64px;height:64px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;}
+  .cert .seal img{max-height:64px;object-fit:contain;}
+  .cert h5{font-family:'Fraunces',serif;font-size:1rem;font-weight:500;margin:0 0 6px;}
+  .cert p{margin:0;font-size:.76rem;color:var(--cream-dim);line-height:1.5;}
+  .cert .no{margin-top:8px;font-family:'Space Mono',monospace;font-size:.64rem;letter-spacing:.06em;color:var(--gold);}
 
   /* ---------- FOOTER ---------- */
-  footer{background:var(--ink); color:var(--cream-dim); padding:56px 0 28px; border-top:1px solid var(--line);}
-  .foot-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid var(--line);}
-  .foot-grid h5{font-family:'Space Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--cream); margin-bottom:16px;}
-  .foot-grid ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; font-size:0.88rem;}
+  footer{background:var(--ink);color:var(--cream-dim);padding:56px 0 28px;border-top:1px solid var(--line);}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:40px;border-bottom:1px solid var(--line);}
+  .foot-grid h5{font-family:'Space Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--cream);margin:0 0 16px;}
+  .foot-grid ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;font-size:.88rem;}
   .foot-grid ul a:hover{color:var(--gold);}
-  .foot-bottom{display:flex; justify-content:space-between; padding-top:24px; font-size:0.78rem; flex-wrap:wrap; gap:12px;}
-  .photo-credits{padding-top:20px; font-size:0.72rem; color:#5f6f68; line-height:1.8;}
-  .photo-credits a{color:#7d8b85;}
-  .photo-credits a:hover{color:var(--gold);}
+  .foot-bottom{display:flex;justify-content:space-between;padding-top:24px;font-size:.78rem;flex-wrap:wrap;gap:12px;}
+  .photo-credits{padding-top:20px;font-size:.72rem;color:#5f6f68;line-height:1.8;}
 
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 980px){
-    .navlinks{display:none;}
+  /* ---------- FLOATING ---------- */
+  .wa{position:fixed;right:22px;bottom:22px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(0,0,0,.35);}
+  .wa::before{content:"";position:absolute;inset:0;border-radius:50%;background:#25D366;animation:wapulse 2.2s ease-out infinite;z-index:-1;}
+  @keyframes wapulse{from{transform:scale(1);opacity:.6}to{transform:scale(1.8);opacity:0}}
+  .wa svg{width:30px;height:30px;fill:#fff;}
+  .totop{position:fixed;right:28px;bottom:92px;z-index:90;width:44px;height:44px;border-radius:50%;border:1px solid var(--gold);background:var(--ink);color:var(--gold);cursor:pointer;opacity:0;visibility:hidden;transition:all .3s;font-size:1.1rem;}
+  .totop.show{opacity:1;visibility:visible;}
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+
+  @media (max-width:980px){
+    .navlinks,.nav-cta,.nav-phone{display:none;}
+    .burger{display:block;}
+    .tb-right .live{display:none;}
     .hero-grid{grid-template-columns:1fr;}
-    .hero-visual{order:-1; margin-bottom:10px;}
-    .arch-frame{max-width:280px;}
-    .dest-grid{grid-template-columns:repeat(2,1fr);}
-    .map-layout{grid-template-columns:1fr; gap:40px;}
+    .hero-visual{order:-1;margin-bottom:10px;}
+    .arch-frame{max-width:260px;}
+    .sun{width:160px;height:160px;}
+    .panel{grid-template-columns:1fr;}
+    .panel-media{position:static;}
+    .map-layout{grid-template-columns:1fr;gap:40px;}
     .pkg-grid{grid-template-columns:1fr;}
     .why-grid{grid-template-columns:repeat(2,1fr);}
-    .why-item{border-left:none !important; padding-left:0 !important;}
-    .testi-grid{grid-template-columns:1fr; gap:30px;}
+    .why-item{border-left:none!important;padding-left:0!important;}
+    .testi-grid{grid-template-columns:1fr;gap:30px;}
+    .testi-bg{background-attachment:scroll;}
     .foot-grid{grid-template-columns:1fr 1fr;}
     .cta-form{grid-template-columns:1fr;}
   }
-  @media (max-width: 600px){
-    .dest-grid{grid-template-columns:1fr;}
-    .why-grid{grid-template-columns:1fr;}
-    .foot-grid{grid-template-columns:1fr;}
+  @media (max-width:600px){
+    .hotel{grid-template-columns:96px 1fr;}
+    .hright{grid-column:2;flex-direction:row;align-items:center;padding:0 14px 12px 0;}
+    .hbody{padding:12px 12px 4px 0;}
+    .tb-left span:nth-child(2),.tb-right{display:none;}
+    .slide-nav{right:20px;}#slideCap{display:none;}
+    .why-grid,.foot-grid{grid-template-columns:1fr;}
     .wrap{padding:0 20px;}
-    section{padding:80px 0;}
+    section{padding:76px 0;}
+    .nav{padding:16px 20px;}
   }
-
-  :focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;}
+    .reveal,.hotel,.hero h1 .w,.mpin,.section-head h2 .sw,.mega a{opacity:1!important;transform:none!important;}
+    header{animation:none!important;}
+    #routePath{stroke-dashoffset:0!important;}
+    #preloader{display:none;}
+  }
 </style>
 </head>
 <body>
 
-<header>
+<div id="preloader">
+  <svg viewBox="0 0 40 40" fill="none"><path d="M2 24C8 24 8 14 14 14C20 14 20 24 26 24C32 24 32 14 38 14" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round"/><circle cx="20" cy="8" r="3" fill="#D9A441"/></svg>
+  <span>Ceyway</span>
+</div>
+<div id="progress"></div>
+
+<header id="hdr">
+  <div class="topbar" id="topbar">
+    <div class="wrap tb-in">
+      <div class="tb-left">
+        <span>✆ <a href="tel:+94718555553">+94 71 855 5553</a></span>
+        <span>✉ <a href="mailto:hello@ceywaytravels.lk">hello@ceywaytravels.lk</a></span>
+      </div>
+      <div class="tb-right">
+        <span class="live"><i></i>Trip coordinators online</span>
+        <span>Licensed by SLTDA</span>
+      </div>
+    </div>
+  </div>
   <nav class="nav">
     <a href="#top" class="logo">
       <svg viewBox="0 0 40 40" fill="none"><path d="M2 24C8 24 8 14 14 14C20 14 20 24 26 24C32 24 32 14 38 14" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round"/><circle cx="20" cy="8" r="3" fill="#D9A441"/></svg>
       Ceyway Travels
     </a>
-    <div class="navlinks">
-      <a href="#destinations">Destinations</a>
-      <a href="#journeys">Journeys</a>
-      <a href="#why">Why Us</a>
-      <a href="#stories">Stories</a>
-      <a href="#contact">Contact</a>
+    <div class="navlinks" id="navlinks">
+      <div class="has-mega">
+        <a href="#explore" class="nl" data-sec="explore">Destinations &amp; Stays <span class="caret"></span></a>
+        <div class="mega" id="mega"></div>
+      </div>
+      <a href="#journeys" class="nl" data-sec="journeys">Route</a>
+      <a href="#packages" class="nl" data-sec="packages">Packages</a>
+      <a href="#why" class="nl" data-sec="why">Why Us</a>
+      <a href="#stories" class="nl" data-sec="stories">Stories</a>
+      <a href="#contact" class="nl" data-sec="contact">Contact</a>
+      <span class="ind" id="ind"></span>
     </div>
-    <a href="#contact" class="nav-cta">Plan My Trip</a>
+    <div class="nav-right">
+      <a href="#contact" class="nav-cta">Plan My Trip</a>
+      <button class="burger" id="burger" aria-label="Menu"><i></i><i></i><i></i></button>
+    </div>
   </nav>
 </header>
+<div class="mobile-menu" id="mmenu">
+  <a href="#explore" style="--i:0">Destinations &amp; Stays</a><a href="#journeys" style="--i:1">Route</a><a href="#packages" style="--i:2">Packages</a><a href="#why" style="--i:3">Why Us</a><a href="#stories" style="--i:4">Stories</a><a href="#contact" style="--i:5">Plan My Trip</a>
+</div>
 
-<section class="hero" id="top">
-  <div class="hero-bg" role="img" aria-label="Stilt fishermen at sunset off the southern coast of Sri Lanka"></div>
-  <svg class="hero-rays" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+<!-- ================= HERO ================= -->
+<section class="hero" id="top" style="padding-top:170px;padding-bottom:90px;">
+  <div class="hero-bg" id="heroBg" role="img" aria-label="Rotating photographs of Sri Lanka"></div>
+  <div class="clouds" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="dust-wrap" id="dust" aria-hidden="true"></div>
+  <div class="sun"></div>
+  <svg class="hero-rays" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <g stroke="#D9A441" stroke-opacity="0.14" stroke-width="1.5">
-      <line x1="900" y1="-50" x2="1200" y2="850"/>
-      <line x1="960" y1="-50" x2="1280" y2="850"/>
-      <line x1="1020" y1="-50" x2="1350" y2="850"/>
-      <line x1="1080" y1="-50" x2="1420" y2="850"/>
-      <line x1="1140" y1="-50" x2="1490" y2="850"/>
+      <line x1="900" y1="-50" x2="1200" y2="850"/><line x1="960" y1="-50" x2="1280" y2="850"/><line x1="1020" y1="-50" x2="1350" y2="850"/><line x1="1080" y1="-50" x2="1420" y2="850"/><line x1="1140" y1="-50" x2="1490" y2="850"/>
     </g>
   </svg>
+  <div class="birds" aria-hidden="true">
+    <svg class="bird" viewBox="0 0 40 16" fill="none" stroke="#F2E9D8" stroke-width="1.6" stroke-linecap="round"><path d="M2 12 Q10 0 20 10 Q30 0 38 12"/></svg>
+    <svg class="bird" viewBox="0 0 40 16" fill="none" stroke="#F2E9D8" stroke-width="1.6" stroke-linecap="round"><path d="M2 12 Q10 0 20 10 Q30 0 38 12"/></svg>
+    <svg class="bird" viewBox="0 0 40 16" fill="none" stroke="#F2E9D8" stroke-width="1.6" stroke-linecap="round"><path d="M2 12 Q10 0 20 10 Q30 0 38 12"/></svg>
+  </div>
   <div class="wrap hero-grid">
     <div>
-      <div class="hero-eyebrow"><span class="rule"></span>Est. Batticaloa, Sri Lanka</div>
-      <h1>Ceylon, charted<br><em>your way.</em></h1>
+      <div class="hero-eyebrow eyebrow"><span class="rule"></span>Est. Batticaloa, Sri Lanka</div>
+      <h1 id="heroTitle"><span class="w" style="animation-delay:1.1s">Ceylon,</span> <span class="w" style="animation-delay:1.25s">charted</span><br><em><span class="w" style="animation-delay:1.45s">your</span> <span class="w" style="animation-delay:1.6s">way.</span></em></h1>
       <p class="lede">Ceyway Travels designs unhurried journeys across Sri Lanka — ancient rock fortresses, misted tea country, leopard-country wilds and coastlines most tour buses never find. Planned by people who actually live here.</p>
+      <div class="typed-line" id="typed"></div>
       <div class="hero-ctas">
         <a href="#contact" class="btn-primary">Start planning →</a>
-        <a href="#journeys" class="btn-ghost">View journeys</a>
+        <a href="#explore" class="btn-ghost">Explore destinations &amp; hotels</a>
       </div>
       <div class="hero-stats">
-        <div><div class="num">9</div><div class="lbl">Regions covered</div></div>
-        <div><div class="num">100%</div><div class="lbl">Tailor-made</div></div>
+        <div><div class="num" data-count="9">0</div><div class="lbl">Regions covered</div></div>
+        <div><div class="num" data-count="40" data-suffix="+">0</div><div class="lbl">Handpicked 4★/5★ stays</div></div>
+        <div><div class="num" data-count="100" data-suffix="%">0</div><div class="lbl">Tailor-made</div></div>
         <div><div class="num">24/7</div><div class="lbl">Local support</div></div>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="arch-frame">
+      <div class="arch-frame tilt">
         <div class="arch-inner" role="img" aria-label="Sigiriya Rock Fortress"></div>
-        <div class="stamp-badge">Sigiriya<br>Rock Fortress</div>
+        <div class="stamp-badge"><span>Sigiriya<br>Rock Fortress</span></div>
       </div>
     </div>
   </div>
+  <div class="slide-nav" id="slideNav"></div>
+  <div class="scroll-hint"><span>Scroll</span><i></i></div>
 </section>
 
-<section id="destinations">
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marq"></div>
+</div>
+
+<!-- ================= EXPLORER ================= -->
+<section class="explorer" id="explore">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow"><span class="rule"></span>The Island, In Nine Chapters</div>
-      <h2>Where Ceyway takes you</h2>
-      <p>Every itinerary is built from real places we know well — not a checklist. Here are the chapters our travellers return to again and again.</p>
+      <h2>Pick a destination. See where to stay.</h2>
+      <p>Every itinerary is built from places we know well. Choose a chapter to see what it offers, the best time to go, and our shortlist of 4★ and 5★ hotels there.</p>
     </div>
-  </div>
-  <div class="dest-grid">
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sigiriya.jpg?width=800')"><span class="num">01 — CULTURAL TRIANGLE</span></div>
-      <div class="dest-body"><h3>Sigiriya &amp; Dambulla</h3><p>Climb the lion-carved rock fortress at dawn, then walk cave temples painted 2,000 years ago.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nine_Arch_Bridge_in_Ella.jpg?width=800')"><span class="num">02 — HILL COUNTRY</span></div>
-      <div class="dest-body"><h3>Ella &amp; Nine Arch Bridge</h3><p>Blue-line trains thread through tea estates and cloud forest on the world's most scenic rail line.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sri_Lankan_Leopard_-_Yala_National_Park.jpg?width=800')"><span class="num">03 — WILDLIFE</span></div>
-      <div class="dest-body"><h3>Yala &amp; Wilpattu</h3><p>Sri Lanka has the highest density of leopards on earth — plus elephants, sloth bears and wild peacocks.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Galle_Fort_Lighthouse.jpg?width=800')"><span class="num">04 — COLONIAL COAST</span></div>
-      <div class="dest-body"><h3>Galle Fort</h3><p>Dutch ramparts, rampart sunsets, and a walkable old town of boutique villas and courtyard cafés.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Tree_Hill.jpg?width=800')"><span class="num">05 — SOUTH COAST</span></div>
-      <div class="dest-body"><h3>Mirissa &amp; Weligama</h3><p>Blue whales offshore by morning, palm-lined surf breaks and beach shacks by afternoon.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sri_Dalada_Maligawa_or_the_Temple_of_the_Sacred_Tooth_Relic.jpg?width=800')"><span class="num">06 — SACRED KANDY</span></div>
-      <div class="dest-body"><h3>Temple of the Tooth</h3><p>Sri Lanka's cultural capital, ringed by lake, hills and the island's most revered Buddhist relic.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Tea_states_in_srilanka.jpg?width=800')"><span class="num">07 — TEA COUNTRY</span></div>
-      <div class="dest-body"><h3>Nuwara Eliya</h3><p>Little England in the clouds — rolling tea gardens, strawberry farms and crisp highland air.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Rankoth_Vehera_Polonnaruwa_Sri_Lanka.jpg?width=800')"><span class="num">08 — ANCIENT CITIES</span></div>
-      <div class="dest-body"><h3>Polonnaruwa &amp; Anuradhapura</h3><p>Vast stupas and stone Buddhas rising out of jungle — Sri Lanka's first two royal capitals.</p></div>
-    </div>
-
-    <div class="dest-card">
-      <div class="dest-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Marble_beach_in_trincomalee.jpg?width=800')"><span class="num">09 — EAST COAST</span></div>
-      <div class="dest-body"><h3>Trincomalee &amp; Kalkudah</h3><p>The road less travelled: quiet coral bays, calm swimming waters and near-empty golden beaches.</p></div>
-    </div>
-
+    <div class="tabs reveal" id="tabs" role="tablist"></div>
+    <div class="panel" id="panel"></div>
   </div>
 </section>
 
+<!-- ================= ROUTE ================= -->
 <section class="map-section" id="journeys">
-  <div class="wrap">
-    <div class="section-head light-on-dark">
+  <div class="wrap light-on-dark">
+    <div class="section-head reveal">
       <div class="eyebrow" style="color:var(--gold)"><span class="rule" style="background:var(--gold)"></span>Sample Route</div>
       <h2>One route, six stops — coast to hill country</h2>
     </div>
     <div class="map-layout">
-      <div class="route-list">
-        <div class="route-item"><span class="route-dot"></span><div><h4>Colombo</h4><p>Arrival &amp; city orientation</p></div></div>
-        <div class="route-item"><span class="route-dot"></span><div><h4>Sigiriya</h4><p>Rock fortress &amp; cave temples</p></div></div>
-        <div class="route-item"><span class="route-dot"></span><div><h4>Kandy</h4><p>Temple of the Tooth &amp; lake walk</p></div></div>
-        <div class="route-item"><span class="route-dot"></span><div><h4>Ella</h4><p>Tea trails &amp; Nine Arch Bridge</p></div></div>
-        <div class="route-item"><span class="route-dot"></span><div><h4>Yala</h4><p>Leopard safari at dawn</p></div></div>
-        <div class="route-item"><span class="route-dot"></span><div><h4>Galle &amp; Mirissa</h4><p>Fort walls, whales &amp; the coast road home</p></div></div>
+      <div class="route-list" id="routeList">
+        <div class="route-item reveal" style="--d:.0s"><span class="route-dot"></span><div><h4>Colombo</h4><p>Arrival &amp; city orientation</p></div></div>
+        <div class="route-item reveal" style="--d:.1s"><span class="route-dot"></span><div><h4>Sigiriya</h4><p>Rock fortress &amp; cave temples</p></div></div>
+        <div class="route-item reveal" style="--d:.2s"><span class="route-dot"></span><div><h4>Kandy</h4><p>Temple of the Tooth &amp; lake walk</p></div></div>
+        <div class="route-item reveal" style="--d:.3s"><span class="route-dot"></span><div><h4>Ella</h4><p>Tea trails &amp; Nine Arch Bridge</p></div></div>
+        <div class="route-item reveal" style="--d:.4s"><span class="route-dot"></span><div><h4>Yala</h4><p>Leopard safari at dawn</p></div></div>
+        <div class="route-item reveal" style="--d:.5s"><span class="route-dot"></span><div><h4>Galle &amp; Mirissa</h4><p>Fort walls, whales &amp; the coast road home</p></div></div>
       </div>
-      <div class="map-svg-wrap">
-        <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg">
-          <path d="M150 20 C 110 30, 70 70, 65 130 C 60 190, 90 220, 85 270 C 80 320, 110 360, 150 395 C 190 365, 220 315, 210 260 C 200 210, 230 175, 225 120 C 220 65, 190 25, 150 20 Z"
-                fill="rgba(217,164,65,0.06)" stroke="#D9A441" stroke-width="1.4" opacity="0.85"/>
-          <path d="M150 60 L100 150 L120 230 L108 300 L150 375 L195 290 L182 215 L200 130 Z"
-                fill="none" stroke="#F2E9D8" stroke-width="1" stroke-dasharray="4 5" opacity="0.55"/>
-          <circle cx="150" cy="60" r="4.5" fill="#D9A441"/><text x="160" y="64" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Colombo</text>
-          <circle cx="100" cy="150" r="4.5" fill="#D9A441"/><text x="55" y="145" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Sigiriya</text>
-          <circle cx="120" cy="230" r="4.5" fill="#D9A441"/><text x="128" y="234" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Kandy</text>
-          <circle cx="108" cy="300" r="4.5" fill="#D9A441"/><text x="55" y="304" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Ella</text>
-          <circle cx="150" cy="375" r="4.5" fill="#D9A441"/><text x="158" y="379" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Yala</text>
-          <circle cx="195" cy="290" r="4.5" fill="#D9A441"/><text x="203" y="294" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Galle</text>
-          <circle cx="200" cy="130" r="3.5" fill="#5C7A52"/><text x="208" y="134" fill="#a9b8b0" font-size="10" font-family="Space Mono, monospace">Trinco</text>
+      <div class="map-svg-wrap" id="mapWrap">
+        <svg viewBox="0 0 320 420" xmlns="http://www.w3.org/2000/svg" aria-label="Schematic route map of Sri Lanka">
+          <path d="M150 20 C 110 30, 70 70, 65 130 C 60 190, 90 220, 85 270 C 80 320, 110 360, 150 395 C 190 365, 220 315, 210 260 C 200 210, 230 175, 225 120 C 220 65, 190 25, 150 20 Z" fill="rgba(217,164,65,0.07)" stroke="#D9A441" stroke-width="1.4" opacity="0.9"/>
+          <path id="routePath" pathLength="1" d="M150 60 L100 150 L120 230 L108 300 L150 375 L195 290" fill="none" stroke="#F2E9D8" stroke-width="1.6" stroke-dasharray="1" opacity="0.8"/>
+          <g class="mpin" style="--pd:.2s"><circle cx="150" cy="60" r="4.5" fill="#D9A441"/><text x="160" y="64" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Colombo</text></g>
+          <g class="mpin" style="--pd:1.1s"><circle cx="100" cy="150" r="4.5" fill="#D9A441"/><text x="55" y="145" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Sigiriya</text></g>
+          <g class="mpin" style="--pd:2s"><circle cx="120" cy="230" r="4.5" fill="#D9A441"/><text x="128" y="234" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Kandy</text></g>
+          <g class="mpin" style="--pd:2.9s"><circle cx="108" cy="300" r="4.5" fill="#D9A441"/><text x="62" y="304" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Ella</text></g>
+          <g class="mpin" style="--pd:3.8s"><circle cx="150" cy="375" r="4.5" fill="#D9A441"/><text x="158" y="379" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Yala</text></g>
+          <g class="mpin" style="--pd:4.7s"><circle cx="195" cy="290" r="4.5" fill="#D9A441"/><text x="203" y="294" fill="#F2E9D8" font-size="11" font-family="Space Mono, monospace">Galle</text></g>
+          <g class="mpin" style="--pd:.5s"><circle cx="200" cy="130" r="3.5" fill="#5C7A52"/><text x="208" y="134" fill="#a9b8b0" font-size="10" font-family="Space Mono, monospace">Trinco</text></g>
+          <circle r="6" fill="#D9A441" opacity="0.95"><animateMotion dur="9s" repeatCount="indefinite" path="M150 60 L100 150 L120 230 L108 300 L150 375 L195 290"/></circle>
+          <circle r="12" fill="#D9A441" opacity="0.25"><animateMotion dur="9s" repeatCount="indefinite" path="M150 60 L100 150 L120 230 L108 300 L150 375 L195 290"/></circle>
         </svg>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<!-- ================= PACKAGES ================= -->
+<section id="packages">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow"><span class="rule"></span>Curated Journeys</div>
       <h2>Three ways to see Sri Lanka</h2>
-      <p>Starting points, not fixed packages — every journey is adjusted to your pace, dates and interests.</p>
+      <p>Starting points, not fixed packages — every journey is adjusted to your pace, dates and interests, and can include any of the hotels above.</p>
     </div>
     <div class="pkg-grid">
-
-      <div class="pkg-card">
-        <div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Rankoth_Vehera_Polonnaruwa_Sri_Lanka.jpg?width=700')"></div>
+      <div class="pkg-card tilt reveal" style="--d:0s">
+        <div class="pkg-photo-wrap"><div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Rankoth_Vehera_Polonnaruwa_Sri_Lanka.jpg?width=700')"></div></div>
         <div class="pkg-content">
           <div class="days">5 Days · Small Group or Private</div>
           <h3>Cultural Triangle Explorer</h3>
           <ul>
-            <li>Sigiriya Rock Fortress at sunrise</li>
-            <li>Dambulla Cave Temple complex</li>
-            <li>Polonnaruwa ancient city by bicycle</li>
-            <li>Kandy Temple of the Tooth &amp; lake walk</li>
-            <li>Village cooking experience</li>
+            <li>Sigiriya Rock Fortress at sunrise</li><li>Dambulla Cave Temple complex</li><li>Polonnaruwa ancient city by bicycle</li><li>Kandy Temple of the Tooth &amp; lake walk</li><li>Village cooking experience</li>
           </ul>
-          <div class="price-row">
-            <div class="price">from $520 <span>/ per person</span></div>
-            <a href="#contact" class="arrow-link">Enquire →</a>
-          </div>
+          <div class="price-row"><div class="price">from $520 <span>/ per person</span></div><a href="#contact" class="arrow-link" data-pick="Cultural Triangle Explorer">Enquire →</a></div>
         </div>
       </div>
-
-      <div class="pkg-card">
-        <div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nine_Arch_Bridge_in_Ella.jpg?width=700')"></div>
+      <div class="pkg-card tilt reveal" style="--d:.12s">
+        <div class="pkg-photo-wrap"><div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nine_Arch_Bridge_in_Ella.jpg?width=700')"></div></div>
         <div class="pkg-content">
           <div class="days">4 Days · Scenic Rail Included</div>
           <h3>Hill Country Tea Trail</h3>
           <ul>
-            <li>Kandy to Ella scenic train journey</li>
-            <li>Tea factory tour &amp; tasting, Nuwara Eliya</li>
-            <li>Nine Arch Bridge &amp; Little Adam's Peak hike</li>
-            <li>Ravana Falls &amp; highland waterfalls</li>
-            <li>Boutique tea-estate bungalow stay</li>
+            <li>Kandy to Ella scenic train journey</li><li>Tea factory tour &amp; tasting, Nuwara Eliya</li><li>Nine Arch Bridge &amp; Little Adam's Peak hike</li><li>Ravana Falls &amp; highland waterfalls</li><li>Boutique tea-estate bungalow stay</li>
           </ul>
-          <div class="price-row">
-            <div class="price">from $460 <span>/ per person</span></div>
-            <a href="#contact" class="arrow-link">Enquire →</a>
-          </div>
+          <div class="price-row"><div class="price">from $460 <span>/ per person</span></div><a href="#contact" class="arrow-link" data-pick="Hill Country Tea Trail">Enquire →</a></div>
         </div>
       </div>
-
-      <div class="pkg-card">
-        <div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Tree_Hill.jpg?width=700')"></div>
+      <div class="pkg-card tilt reveal" style="--d:.24s">
+        <div class="pkg-photo-wrap"><div class="pkg-photo" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Coconut_Tree_Hill.jpg?width=700')"></div></div>
         <div class="pkg-content">
           <div class="days">6 Days · Beach &amp; Wildlife</div>
           <h3>Southern &amp; East Coast Escape</h3>
           <ul>
-            <li>Yala National Park leopard safari</li>
-            <li>Galle Fort walking tour</li>
-            <li>Mirissa whale watching (seasonal)</li>
-            <li>Quiet-beach add-on: Kalkudah or Trincomalee</li>
-            <li>Surf lesson at Weligama</li>
+            <li>Yala National Park leopard safari</li><li>Galle Fort walking tour</li><li>Mirissa whale watching (seasonal)</li><li>Quiet-beach add-on: Kalkudah or Trincomalee</li><li>Surf lesson at Weligama</li>
           </ul>
-          <div class="price-row">
-            <div class="price">from $610 <span>/ per person</span></div>
-            <a href="#contact" class="arrow-link">Enquire →</a>
-          </div>
+          <div class="price-row"><div class="price">from $610 <span>/ per person</span></div><a href="#contact" class="arrow-link" data-pick="Southern &amp; East Coast Escape">Enquire →</a></div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<section id="why">
+<!-- ================= WHY ================= -->
+<section id="why" style="background:var(--paper)">
   <div class="wrap">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow"><span class="rule"></span>Why Ceyway</div>
       <h2>Planned by people who live here</h2>
     </div>
     <div class="why-grid">
-      <div class="why-item">
+      <div class="why-item reveal" style="--d:0s">
         <svg class="ic" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#C1602E" stroke-width="2"/><path d="M18 8v10l7 4" stroke="#C1602E" stroke-width="2" fill="none"/></svg>
-        <h4>Tailor-made, not templated</h4>
-        <p>Every itinerary is built around your dates, pace and interests — never a fixed bus-tour route.</p>
+        <h4>Tailor-made, not templated</h4><p>Every itinerary is built around your dates, pace and interests — never a fixed bus-tour route.</p>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal" style="--d:.1s">
         <svg class="ic" viewBox="0 0 36 36"><path d="M18 4 L30 11 V25 L18 32 L6 25 V11 Z" fill="none" stroke="#C1602E" stroke-width="2"/></svg>
-        <h4>Local, licensed guides</h4>
-        <p>Our guides and drivers are Sri Lankan, Tourism Board licensed, and know the roads that don't show up on maps.</p>
+        <h4>Local, licensed guides</h4><p>Our guides and drivers are Sri Lankan, Tourism Board licensed, and know the roads that don't show up on maps.</p>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal" style="--d:.2s">
         <svg class="ic" viewBox="0 0 36 36"><path d="M8 28 Q18 8 28 28" fill="none" stroke="#C1602E" stroke-width="2"/><circle cx="18" cy="15" r="3" fill="#C1602E"/></svg>
-        <h4>Support around the clock</h4>
-        <p>A direct line to your trip coordinator for the entire journey — before you land and after you leave.</p>
+        <h4>Support around the clock</h4><p>A direct line to your trip coordinator for the entire journey — before you land and after you leave.</p>
       </div>
-      <div class="why-item">
+      <div class="why-item reveal" style="--d:.3s">
         <svg class="ic" viewBox="0 0 36 36"><path d="M18 32c8-6 12-13 12-19a12 12 0 0 0-24 0c0 6 4 13 12 19Z" fill="none" stroke="#C1602E" stroke-width="2"/><circle cx="18" cy="13" r="3.5" fill="#C1602E"/></svg>
-        <h4>Community-first travel</h4>
-        <p>We route stays and meals through family-run guesthouses and small operators wherever we can.</p>
+        <h4>Community-first travel</h4><p>We route stays and meals through family-run guesthouses and small operators wherever we can.</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ================= TESTIMONIALS ================= -->
+<!-- NOTE: replace these with real traveller reviews (with permission) before launch. -->
 <section class="testi-section" id="stories">
   <div class="testi-bg" role="img" aria-label="Tea plantation in the Sri Lankan hill country"></div>
-  <div class="wrap">
-    <div class="section-head light-on-dark">
+  <div class="wrap light-on-dark">
+    <div class="section-head reveal">
       <div class="eyebrow" style="color:var(--gold)"><span class="rule" style="background:var(--gold)"></span>Traveller Notes</div>
       <h2>What it's like to travel with Ceyway</h2>
     </div>
     <div class="testi-grid">
-      <div class="testi-card">
-        <p class="quote">Our driver-guide knew every temple, every viewpoint, and exactly when to skip the crowds. It felt like travelling with a well-connected friend, not a tour company.</p>
-        <div class="who">R. Kallman — Netherlands</div>
-      </div>
-      <div class="testi-card">
-        <p class="quote">We asked for something slower with fewer stops and Ceyway rebuilt the whole route around that. The east coast beach add-on was the highlight of the trip.</p>
-        <div class="who">A. &amp; M. Suzuki — Japan</div>
-      </div>
-      <div class="testi-card">
-        <p class="quote">Booking felt effortless and every detail — trains, park permits, hotel transfers — was sorted before we even landed in Colombo.</p>
-        <div class="who">J. Whitfield — United Kingdom</div>
-      </div>
+      <div class="testi-card reveal" style="--d:0s"><p class="quote">Our driver-guide knew every temple, every viewpoint, and exactly when to skip the crowds. It felt like travelling with a well-connected friend, not a tour company.</p><div class="who-row"><div class="avatar" data-photo="images/people/r-kallman.jpg">RK</div><div class="who">R. Kallman — Netherlands</div></div></div>
+      <div class="testi-card reveal" style="--d:.12s"><p class="quote">We asked for something slower with fewer stops and Ceyway rebuilt the whole route around that. The east coast beach add-on was the highlight of the trip.</p><div class="who-row"><div class="avatar" data-photo="images/people/a-m-suzuki.jpg">AM</div><div class="who">A. &amp; M. Suzuki — Japan</div></div></div>
+      <div class="testi-card reveal" style="--d:.24s"><p class="quote">Booking felt effortless and every detail — trains, park permits, hotel transfers — was sorted before we even landed in Colombo.</p><div class="who-row"><div class="avatar" data-photo="images/people/j-whitfield.jpg">JW</div><div class="who">J. Whitfield — United Kingdom</div></div></div>
     </div>
   </div>
 </section>
 
+<!-- ================= CONTACT ================= -->
 <section class="cta-section" id="contact">
   <div class="wrap">
-    <div class="eyebrow" style="color:var(--gold); justify-content:center; display:flex; gap:12px; margin-bottom:18px;"><span class="rule" style="background:var(--gold)"></span>Let's Plan It</div>
-    <h2>Tell us your dates. We'll draft the route.</h2>
-    <p>Share a few details and a Ceyway trip coordinator will send a tailored itinerary within one business day.</p>
-
-    <form class="cta-form" action="https://formsubmit.co/sinthujantiruchselvam@gmail.com" method="POST">
+    <div class="eyebrow reveal" style="color:var(--gold);justify-content:center;display:flex;gap:12px;margin-bottom:18px;">Let's Plan It</div>
+    <h2 class="reveal">Tell us your dates. We'll draft the route.</h2>
+    <p class="reveal">Share a few details and a Ceyway trip coordinator will send a tailored itinerary within one business day.</p>
+    <form class="cta-form reveal" action="https://formsubmit.co/sinthujantiruchselvam@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New trip request — Ceyway Travels website">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
-      <div>
-        <label for="name">Full name</label>
-        <input id="name" name="Full Name" type="text" placeholder="Your name" required>
-      </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" name="Email" type="email" placeholder="you@email.com" required>
-      </div>
-      <div>
-        <label for="dates">Travel dates</label>
-        <input id="dates" name="Travel Dates" type="text" placeholder="e.g. 12–20 Dec 2026">
-      </div>
+      <div><label for="name">Full name</label><input id="name" name="Full Name" type="text" placeholder="Your name" required></div>
+      <div><label for="email">Email</label><input id="email" name="Email" type="email" placeholder="you@email.com" required></div>
+      <div><label for="dates">Travel dates</label><input id="dates" name="Travel Dates" type="text" placeholder="e.g. 12–20 Dec 2026"></div>
       <div>
         <label for="interest">Interested in</label>
         <select id="interest" name="Interested In">
-          <option>Cultural Triangle Explorer</option>
-          <option>Hill Country Tea Trail</option>
-          <option>Southern &amp; East Coast Escape</option>
-          <option>A fully custom itinerary</option>
+          <option>Cultural Triangle Explorer</option><option>Hill Country Tea Trail</option><option>Southern &amp; East Coast Escape</option><option>A fully custom itinerary</option>
         </select>
       </div>
-      <div class="full">
-        <label for="notes">Anything else we should know?</label>
-        <textarea id="notes" name="Notes" placeholder="Group size, interests, pace, budget..."></textarea>
+      <div>
+        <label for="hotelclass">Hotel class</label>
+        <select id="hotelclass" name="Hotel Class"><option>5★ luxury</option><option>4★ comfort</option><option>Mix of 4★ and 5★</option><option>Boutique / unique stays</option></select>
       </div>
-      <button type="submit">Send my trip request</button
+      <div><label for="pax">Travellers</label><input id="pax" name="Travellers" type="text" placeholder="e.g. 2 adults, 1 child"></div>
+      <div class="full"><label for="notes">Anything else we should know?</label><textarea id="notes" name="Notes" placeholder="Interests, pace, budget, preferred hotels..."></textarea></div>
+      <button type="submit">Send my trip request</button>
+      <div class="form-note">Your request is emailed directly to the Ceyway team. We reply within one business day.</div>
     </form>
+  </div>
+</section>
+
+<!-- ================= CERTIFICATES ================= -->
+<section class="certs" id="certificates">
+  <div class="wrap">
+    <h3 class="reveal">Licensed &amp; Recognised</h3>
+    <p class="sub reveal">Our credentials, so you can book with confidence.</p>
+    <div class="cert-row" id="certRow"></div>
   </div>
 </section>
 
@@ -648,85 +670,368 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo" style="color:var(--cream); margin-bottom:14px;">
+        <div class="logo" style="color:var(--cream);margin-bottom:14px;">
           <svg viewBox="0 0 40 40" fill="none" style="width:26px;height:26px;"><path d="M2 24C8 24 8 14 14 14C20 14 20 24 26 24C32 24 32 14 38 14" stroke="#D9A441" stroke-width="2.4" stroke-linecap="round"/><circle cx="20" cy="8" r="3" fill="#D9A441"/></svg>
           Ceyway Travels
         </div>
-        <p style="font-size:0.86rem; max-width:280px; line-height:1.6;">A Sri Lankan travel agency crafting tailor-made journeys across the island — from ancient cities to quiet coastlines.</p>
+        <p style="font-size:.86rem;max-width:280px;line-height:1.6;">A Sri Lankan travel agency crafting tailor-made journeys across the island — from ancient cities to quiet coastlines.</p>
       </div>
-      <div>
-        <h5>Explore</h5>
-        <ul>
-          <li><a href="#destinations">Destinations</a></li>
-          <li><a href="#journeys">Journeys</a></li>
-          <li><a href="#why">Why Ceyway</a></li>
-          <li><a href="#stories">Traveller Stories</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Company</h5>
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Guides</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Get in touch</h5>
-        <ul>
-          <li>Batticaloa, Sri Lanka</li>
-          <li>hello@ceywaytravels.lk</li>
-          <li>+94718555553</li>
-        </ul>
-      </div>
+      <div><h5>Explore</h5><ul><li><a href="#explore">Destinations &amp; Stays</a></li><li><a href="#journeys">Route</a></li><li><a href="#packages">Packages</a></li><li><a href="#stories">Traveller Stories</a></li></ul></div>
+      <div><h5>Company</h5><ul><li><a href="#why">Why Ceyway</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#contact">Contact</a></li></ul></div>
+      <div><h5>Get in touch</h5><ul><li>Batticaloa, Sri Lanka</li><li>hello@ceywaytravels.lk</li><li><a href="tel:+94718555553">+94 71 855 5553</a></li></ul></div>
     </div>
     <div class="foot-bottom">
       <span>© 2026 Ceyway Travels. All rights reserved.</span>
       <span>Licensed by the Sri Lanka Tourism Development Authority</span>
     </div>
     <div class="photo-credits">
+      Photography via Wikimedia Commons contributors, used under Creative Commons licenses (CC BY-SA). Full source &amp; author details are on each image's Commons file page. Replace with your own licensed or original photography before commercial launch. Hotel star classes are as listed by public booking platforms and may differ from official ratings; hotel names are shown for information only and do not imply endorsement or partnership.
     </div>
   </div>
 </footer>
 
+<a class="wa" href="https://wa.me/94718555553?text=Hi%20Ceyway%20Travels%2C%20I%27d%20like%20to%20plan%20a%20trip" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3C9 3 3.4 8.6 3.4 15.5c0 2.3.6 4.4 1.7 6.3L3 29l7.4-2c1.8 1 3.800 1.500 5.800 1.500 6.900 0 12.500-5.600 12.500-12.500S22.900 3 16 3zm0 22.800c-1.900 0-3.700-.5-5.200-1.500l-.4-.2-4.400 1.200 1.200-4.300-.3-.4a10.200 10.200 0 0 1-1.600-5.500C5.300 9.500 10.100 4.900 16 4.900s10.700 4.600 10.700 10.600-4.800 10.300-10.700 10.300zm5.900-7.700c-.3-.2-1.900-.9-2.200-1-.3-.1-.5-.2-.7.200-.2.300-.8 1-1 1.200-.2.200-.4.200-.7.100-.3-.2-1.400-.5-2.600-1.600-1-.9-1.600-1.900-1.800-2.200-.2-.3 0-.5.100-.7l.5-.6c.1-.2.2-.3.300-.5.100-.2.100-.4 0-.6-.1-.2-.7-1.700-1-2.300-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.100-.9.400-.3.300-1.200 1.200-1.200 2.800s1.200 3.200 1.400 3.500c.2.200 2.400 3.700 5.800 5.100.8.400 1.500.6 2 .8.800.3 1.600.2 2.200.1.700-.1 1.900-.8 2.200-1.500.3-.8.300-1.400.2-1.500-.1-.2-.3-.2-.6-.4z"/></svg>
+</a>
+<button class="totop" id="totop" aria-label="Back to top">↑</button>
+
 <script>
-// Ceyway Travels — small site interactions
+/* =======================================================
+   EDIT YOUR CONTENT HERE
+   ======================================================= */
 
-document.addEventListener('DOMContentLoaded', function () {
+// Certificates & memberships — add ONLY ones you actually hold.
+// Optional: img (path/URL to your logo or certificate scan), number (licence no.)
+const CERTS = [
+  { title:"SLTDA Licensed", text:"Registered with the Sri Lanka Tourism Development Authority.", number:"" /* add licence no. */, img:"" },
+  // { title:"Your certificate name", text:"Short description", number:"Reg. no.", img:"images/cert.png" },
+];
 
-  // Mobile nav menu toggle
-  var toggle = document.getElementById('navToggle');
-  var navLinks = document.querySelector('.navlinks');
+// Destinations & hotels (stars: 5 or 4). Star classes as listed by public booking platforms.
+const DESTS = [
+ { id:"sigiriya", name:"Sigiriya & Dambulla", tag:"Cultural Triangle", img:"Sigiriya.jpg",
+   text:"Climb the lion-carved rock fortress at dawn, then walk cave temples painted 2,000 years ago. Elephant safaris at Minneriya and Kaudulla are close by in the dry season.",
+   best:"Jan – Sep (dry zone)", chips:["Sigiriya Rock","Dambulla Caves","Pidurangala","Minneriya safari"],
+   hotels:[
+    {n:"Heritance Kandalama",s:5,a:"Dambulla · Geoffrey Bawa-designed cliffside hotel"},
+    {n:"Jetwing Lake",s:5,a:"Dambulla · lakeside resort"},
+    {n:"Cinnamon Lodge Habarana",s:5,a:"Habarana · forest-garden lodge"},
+    {n:"Amaya Lake Dambulla",s:4,a:"Kandalama · lake & jungle setting"},
+    {n:"Habarana Village by Cinnamon",s:4,a:"Habarana · village-style resort"},
+    {n:"Hotel Sigiriya",s:4,a:"Sigiriya · close to the Rock"}
+   ]},
+ { id:"ella", name:"Ella & Nine Arch Bridge", tag:"Hill Country", img:"Nine_Arch_Bridge_in_Ella.jpg",
+   text:"Blue-line trains thread through tea estates and cloud forest on the world's most scenic rail line. Hike Little Adam's Peak, Ella Rock and chase waterfalls.",
+   best:"Jan – Mar", chips:["Nine Arch Bridge","Little Adam's Peak","Ravana Falls","Ella Rock"],
+   hotels:[
+    {n:"Nine Skies",s:5,a:"Demodara · restored colonial tea bungalow"},
+    {n:"EKHO Ella",s:4,a:"Ella · mountain-view hotel"},
+    {n:"Ella Flower Garden Resort",s:4,a:"Ella · spa & garden"},
+    {n:"Ella Mount Heaven",s:4,a:"Ella · views, spa & bar"}
+   ]},
+ { id:"yala", name:"Yala & Wilpattu", tag:"Wildlife", img:"Sri_Lankan_Leopard_-_Yala_National_Park.jpg",
+   text:"Sri Lanka has one of the highest densities of leopards on earth — plus elephants, sloth bears and wild peacocks. Game drives start before sunrise.",
+   best:"Feb – Jul", chips:["Leopard safari","Elephants","Birdlife","Palatupana coast"],
+   hotels:[
+    {n:"Jetwing Yala",s:5,a:"Palatupana · beachfront, near the park"},
+    {n:"Hilton Yala Resort",s:5,a:"Palatupana · luxury safari resort"},
+    {n:"Cinnamon Wild Yala",s:5,a:"Yala · beside the national park"},
+    {n:"Uga Chena Huts",s:5,a:"Palatupana · safari-chic private-pool huts"}
+   ]},
+ { id:"galle", name:"Galle Fort", tag:"Colonial Coast", img:"Galle_Fort_Lighthouse.jpg",
+   text:"Dutch ramparts, sunset walks on the walls, and a walkable old town of boutique villas, galleries and courtyard cafés. A UNESCO World Heritage Site.",
+   best:"Nov – Apr", chips:["Fort ramparts","Lighthouse","Unawatuna beach","Boutique shopping"],
+   hotels:[
+    {n:"Jetwing Lighthouse",s:5,a:"Galle · Geoffrey Bawa-designed, sea-facing"},
+    {n:"The Fortress Resort & Spa",s:5,a:"Koggala · beachfront"},
+    {n:"The Fort Printers",s:4,a:"Galle Fort · heritage boutique hotel"},
+    {n:"Radisson Collection Resort Galle",s:4,a:"Talpe · beachfront resort"}
+   ]},
+ { id:"mirissa", name:"Mirissa & Weligama", tag:"South Coast", img:"Coconut_Tree_Hill.jpg",
+   text:"Blue whales offshore by morning, palm-lined surf breaks and beach shacks by afternoon. Walk to Coconut Tree Hill for sunset.",
+   best:"Nov – Apr (whales)", chips:["Whale watching","Surfing","Coconut Tree Hill","Beach bars"],
+   hotels:[
+    {n:"Cape Weligama",s:5,a:"Weligama · clifftop Relais & Châteaux resort"},
+    {n:"Weligama Bay Marriott Resort & Spa",s:5,a:"Weligama · beachfront"},
+    {n:"Amaloh Boutique Resorts",s:5,a:"Mirissa area · boutique resort"},
+    {n:"Mandara Resort",s:4,a:"Weligama · beach resort"},
+    {n:"NiiRA",s:4,a:"Mirissa · stylish, minutes from the beach"},
+    {n:"Triple O Six",s:4,a:"Mirissa · rooftop terrace"}
+   ]},
+ { id:"kandy", name:"Kandy & Temple of the Tooth", tag:"Sacred Kandy", img:"Sri_Dalada_Maligawa_or_the_Temple_of_the_Sacred_Tooth_Relic.jpg",
+   text:"Sri Lanka's cultural capital, ringed by lake, hills and the island's most revered Buddhist relic. Stay for an evening Kandyan dance show.",
+   best:"Jan – Apr · Aug (Perahera)", chips:["Temple of the Tooth","Royal Botanical Gardens","Kandy Lake","Cultural dance"],
+   hotels:[
+    {n:"Earl's Regency",s:5,a:"Kandy · Mahaweli riverside"},
+    {n:"Santani Wellness Kandy",s:5,a:"Werapitiya · hilltop wellness retreat"},
+    {n:"Aarunya Nature Resort",s:5,a:"Kandy · private-pool nature retreat"},
+    {n:"Cinnamon Citadel Kandy",s:4,a:"Kandy · riverside resort"},
+    {n:"Radisson Hotel Kandy",s:4,a:"Kandy · city hotel"},
+    {n:"The Radh Hotel",s:4,a:"Kandy · central"}
+   ]},
+ { id:"nuwara", name:"Nuwara Eliya", tag:"Tea Country", img:"Tea_states_in_srilanka.jpg",
+   text:"Little England in the clouds — rolling tea gardens, strawberry farms, colonial bungalows and crisp highland air. Visit a working tea factory.",
+   best:"Feb – May", chips:["Tea factories","Gregory Lake","Horton Plains","Colonial bungalows"],
+   hotels:[
+    {n:"Heritance Tea Factory",s:5,a:"Kandapola · a working tea factory turned hotel"},
+    {n:"Ceylon Tea Trails",s:5,a:"Hatton · Relais & Châteaux tea bungalows"},
+    {n:"Grand Hotel Nuwara Eliya",s:4,a:"Nuwara Eliya · colonial-era grand hotel"},
+    {n:"Jetwing Oatlands Bungalow",s:4,a:"Nuwara Eliya · boutique bungalow"}
+   ]},
+ { id:"ancient", name:"Polonnaruwa & Anuradhapura", tag:"Ancient Cities", img:"Rankoth_Vehera_Polonnaruwa_Sri_Lanka.jpg",
+   text:"Vast stupas and stone Buddhas rising out of jungle — Sri Lanka's first two royal capitals. Best explored by bicycle at golden hour.",
+   best:"Jan – Sep", chips:["Gal Vihara","Ruwanwelisaya","Sri Maha Bodhi","Cycling tours"],
+   hotels:[
+    {n:"Deer Park Hotel",s:5,a:"Giritale · lakeside spa hotel"},
+    {n:"Uga Ulagalla",s:5,a:"Anuradhapura · villa resort"},
+    {n:"Giritale Hotel",s:4,a:"Giritale · near Polonnaruwa"},
+    {n:"Ruins Chaaya Hotel",s:4,a:"Polonnaruwa · by the ancient city"}
+   ]},
+ { id:"east", name:"Trincomalee & Kalkudah", tag:"East Coast", img:"Marble_beach_in_trincomalee.jpg",
+   text:"The road less travelled: quiet coral bays, calm swimming waters and near-empty golden beaches. Snorkel at Pigeon Island and watch whales offshore in season.",
+   best:"May – Sep", chips:["Passikudah Bay","Nilaveli","Pigeon Island","Koneswaram Temple"],
+   hotels:[
+    {n:"Uga Jungle Beach",s:5,a:"Trincomalee · secluded beach resort"},
+    {n:"Amaya Beach Passikudah",s:5,a:"Passikudah · beachfront resort"},
+    {n:"Trinco Blu by Cinnamon",s:4,a:"Trincomalee · beachfront resort"},
+    {n:"Amaranthé Bay Resort & Spa",s:4,a:"Trincomalee · bay views & spa"},
+    {n:"Amethyst Resort Passikudah",s:4,a:"Passikudah · on the beach"},
+    {n:"Maalu Maalu Resort & Spa",s:4,a:"Passikudah · resort & spa"}
+   ]}
+];
 
-  if (toggle && navLinks) {
-    toggle.addEventListener('click', function () {
-      var isOpen = navLinks.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+/* =======================================================
+   ENGINE (no need to edit below)
+   ======================================================= */
+const $ = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const photo = f => `https://commons.wikimedia.org/wiki/Special:FilePath/${f}?width=1000`;
+
+// preloader
+addEventListener('load',()=>setTimeout(()=>$('#preloader').classList.add('done'),reduced?0:1500));
+setTimeout(()=>$('#preloader').classList.add('done'),3500);
+
+// marquee
+(()=>{
+  const names = DESTS.map(d=>d.name);
+  const html = names.map(n=>`<span>${n}</span>`).join('');
+  $('#marq').innerHTML = html+html;
+})();
+
+// typed line
+(()=>{
+  const phrases = ["Sunrise on Sigiriya Rock…","The blue-line train to Ella…","Leopards at dawn in Yala…","Whales off the Mirissa coast…","Quiet beaches on the east coast…"];
+  const el = $('#typed'); if(reduced){el.textContent=phrases[0];return;}
+  let p=0,c=0,del=false;
+  (function tick(){
+    const full=phrases[p];
+    el.textContent = full.slice(0,c);
+    if(!del && c===full.length){del=true;return setTimeout(tick,1500);}
+    if(del && c===0){del=false;p=(p+1)%phrases.length;}
+    c += del?-1:1;
+    setTimeout(tick,del?28:60);
+  })();
+})();
+
+// count-up
+const counter = new IntersectionObserver((es)=>es.forEach(e=>{
+  if(!e.isIntersecting) return; counter.unobserve(e.target);
+  const t=+e.target.dataset.count, suf=e.target.dataset.suffix||'';
+  if(reduced){e.target.textContent=t+suf;return;}
+  const start=performance.now(),dur=1600;
+  (function f(now){const k=Math.min((now-start)/dur,1);e.target.textContent=Math.round(t*(1-Math.pow(1-k,3)))+suf;if(k<1)requestAnimationFrame(f);})(start);
+}),{threshold:.6});
+$$('[data-count]').forEach(n=>counter.observe(n));
+
+// reveal on scroll
+const rev = new IntersectionObserver((es)=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('in');rev.unobserve(e.target);}
+}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+$$('.reveal').forEach(n=>rev.observe(n));
+// map wrap uses same trigger
+const mapObs = new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');mapObs.unobserve(e.target);}}),{threshold:.35});
+mapObs.observe($('#mapWrap'));
+
+// header / progress / parallax / back-to-top
+const hdr=$('#hdr'),prog=$('#progress'),toTopBtn=$('#totop'),hb=$('#heroBg');
+function onScroll(){
+  const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  hdr.classList.toggle('scrolled',y>40);
+  prog.style.width=(y/h*100)+'%';
+  toTopBtn.classList.toggle('show',y>700);
+  if(!reduced&&y<innerHeight*1.2) hb.style.transform=`translateY(${y*.25}px)`;
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+toTopBtn.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+// mobile menu
+// (mobile menu handled below)
+
+// 3D tilt
+if(!reduced && matchMedia('(hover:hover)').matches){
+  $$('.tilt').forEach(el=>{
+    el.addEventListener('mousemove',e=>{
+      const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      el.style.transform=`perspective(900px) rotateY(${x*8}deg) rotateX(${-y*8}deg) translateY(-4px)`;
     });
+    el.addEventListener('mouseleave',()=>el.style.transform='');
+  });
+}
 
-    // Close the menu after tapping a link (nice on mobile)
-    navLinks.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        navLinks.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-      });
-    });
+// destination explorer
+const tabs=$('#tabs'),panel=$('#panel');
+let cur=0,filt='all';
+tabs.innerHTML=DESTS.map((d,i)=>`<button class="tab" role="tab" data-i="${i}"><b>0${i+1}</b>${d.name}</button>`).join('');
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;cur=+b.dataset.i;filt='all';render();b.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});});
+function stars(n){return '★'.repeat(n)+'☆'.repeat(5-n);}
+const slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+function render(){
+  const d=DESTS[cur];
+  $$('.tab',tabs).forEach((t,i)=>{t.classList.toggle('active',i===cur);t.setAttribute('aria-selected',i===cur);});
+  const list=d.hotels.filter(h=>filt==='all'||h.s===+filt);
+  panel.innerHTML=`
+    <div class="panel-media">
+      <div class="panel-photo" style="background-image:url('${photo(d.img)}')"><span class="cap">0${cur+1} — ${d.tag}</span></div>
+    </div>
+    <div class="panel-info">
+      <div class="chips"><span class="chip best">Best time: ${d.best}</span>${d.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>
+      <h3>${d.name}</h3>
+      <p>${d.text}</p>
+      <div class="hotels-head">
+        <h4>Where to stay</h4>
+        <div class="filters">
+          ${[['all','All'],['5','5★'],['4','4★']].map(([v,l])=>`<button data-f="${v}" class="${filt===v?'active':''}">${l}</button>`).join('')}
+        </div>
+      </div>
+      <div class="hotel-list">
+        ${list.map((h,i)=>{
+          const fb=photo(d.img);
+          const pos=[[20,45],[70,55],[45,30],[85,60],[30,70],[60,40]][i%6];
+          return `
+          <div class="hotel s${h.s}" style="--d:${i*.08}s">
+            <div class="hphoto"><img src="images/hotels/${slug(h.n)}.jpg" alt="${h.n}" loading="lazy" style="object-position:${pos[0]}% ${pos[1]}%" onerror="this.onerror=null;this.src='${fb}'"><span class="hbadge">${h.s}★ HOTEL</span></div>
+            <div class="hbody"><h5>${h.n}</h5><div class="meta">${h.a}</div></div>
+            <div class="hright"><div class="stars" aria-label="${h.s} star">${stars(h.s)}</div><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.n+' Sri Lanka')}" target="_blank" rel="noopener">View on map ↗</a></div>
+          </div>`;}).join('')}
+      </div>
+      <p class="disclaimer">Star classes are as listed by public booking platforms and may differ from official ratings. We book any of these for you — or suggest alternatives to match your budget and dates.</p>
+    </div>`;
+  $$('.filters button',panel).forEach(b=>b.onclick=()=>{filt=b.dataset.f;render();});
+}
+render();
+
+// package enquire buttons preselect the form
+$$('[data-pick]').forEach(a=>a.addEventListener('click',()=>{
+  const s=$('#interest'),v=a.dataset.pick.replace(/&amp;/g,'&');
+  [...s.options].forEach(o=>{if(o.text===v)s.value=o.value;});
+}));
+
+// certificates
+(()=>{
+  const row=$('#certRow');
+  row.innerHTML=CERTS.map(c=>`
+    <div class="cert reveal tilt">
+      <div class="seal">${c.img?`<img src="${c.img}" alt="${c.title}">`:`<svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="#D9A441" stroke-width="2"><circle cx="24" cy="20" r="12"/><path d="M17 30l-3 14 10-5 10 5-3-14"/><path d="M19 20l4 4 7-8" stroke-linecap="round" stroke-linejoin="round"/></svg>`}</div>
+      <h5>${c.title}</h5><p>${c.text}</p>${c.number?`<div class="no">${c.number}</div>`:''}
+    </div>`).join('');
+  $$('.cert',row).forEach(n=>rev.observe(n));
+})();
+
+/* =======================================================
+   v3: header, hero slideshow, extra animation
+   ======================================================= */
+// mega menu (destinations)
+const mega=$('#mega');
+mega.innerHTML=DESTS.map((d,i)=>`<a href="#explore" data-i="${i}" style="--i:${i}"><img src="${photo(d.img).replace('width=1000','width=160')}" alt="" loading="lazy"><span><b>${d.name}</b><small>${d.tag}</small></span></a>`).join('');
+function goDest(i){cur=i;filt='all';render();document.getElementById('explore').scrollIntoView({behavior:'smooth'});}
+mega.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();goDest(+a.dataset.i);if(document.activeElement)document.activeElement.blur();});
+
+// scroll-spy + sliding underline
+const nls=$$('.nl'),navlinks=$('#navlinks'),ind=$('#ind');
+const secs=nls.map(a=>document.getElementById(a.dataset.sec));
+function setActive(a){
+  nls.forEach(x=>x.classList.toggle('active',x===a));
+  if(!a){ind.style.width='0';return;}
+  const r=a.getBoundingClientRect(),n=navlinks.getBoundingClientRect();
+  ind.style.left=(r.left-n.left+16)+'px';
+  ind.style.width=Math.max(r.width-32,10)+'px';
+}
+function spy(){
+  const y=scrollY+innerHeight*.35;let act=null;
+  secs.forEach((sec,i)=>{if(sec&&sec.offsetTop<=y&&sec.offsetTop+sec.offsetHeight>y)act=nls[i];});
+  if(act!==spy.cur){spy.cur=act;setActive(act);}
+}
+addEventListener('scroll',spy,{passive:true});
+addEventListener('resize',()=>{spy.cur=undefined;spy();});
+spy();
+
+// mobile menu
+const mm=$('#mmenu'),burger=$('#burger');
+function menu(open){mm.classList.toggle('open',open);burger.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';hdr.classList.remove('hide');}
+burger.onclick=()=>menu(!mm.classList.contains('open'));
+$$('a',mm).forEach(a=>a.onclick=()=>menu(false));
+
+// hide header on scroll down, show on scroll up
+let lastY=scrollY;
+addEventListener('scroll',()=>{
+  const y=scrollY;
+  if(!mm.classList.contains('open')) hdr.classList.toggle('hide',y>lastY+2&&y>600);
+  lastY=y;
+},{passive:true});
+
+// hero slideshow (Ken Burns cross-fade)
+(()=>{
+  const slides=[
+    ['Stilt_fishing_Sri_Lanka_(29445683784).jpg','Stilt fishing · Southern coast'],
+    ['Nine_Arch_Bridge_in_Ella.jpg','Nine Arch Bridge · Ella'],
+    ['Tea_states_in_srilanka.jpg','Tea country · Nuwara Eliya'],
+    ['Galle_Fort_Lighthouse.jpg','Galle Fort · Lighthouse']
+  ];
+  const bg=$('#heroBg'),nav=$('#slideNav');
+  bg.innerHTML=slides.map(sl=>`<div class="slide" style="background-image:url('${photo(sl[0]).replace('width=1000','width=1800')}')"></div>`).join('');
+  nav.innerHTML=slides.map((sl,i)=>`<button data-i="${i}" aria-label="${sl[1]}"><i></i></button>`).join('')+'<span id="slideCap"></span>';
+  const els=$$('.slide',bg),btns=$$('button',nav),cap=$('#slideCap');
+  let idx=0,timer;
+  function show(i){
+    idx=i;
+    els.forEach((e,k)=>e.classList.toggle('on',k===i));
+    btns.forEach((b,k)=>{b.classList.remove('active');if(k===i){void b.offsetWidth;b.classList.add('active');}});
+    cap.textContent=slides[i][1];
   }
+  show(0);
+  if(reduced) return;
+  const start=()=>{clearInterval(timer);timer=setInterval(()=>show((idx+1)%slides.length),7000);};
+  btns.forEach(b=>b.onclick=()=>{show(+b.dataset.i);start();});
+  start();
+})();
 
-  // Prevent double-submitting the trip request form
-  var form = document.querySelector('.cta-form');
-  if (form) {
-    form.addEventListener('submit', function () {
-      var btn = form.querySelector('button[type="submit"]');
-      if (btn) {
-        btn.textContent = 'Sending...';
-        btn.disabled = true;
-      }
-    });
-  }
+// golden dust particles
+(()=>{
+  if(reduced) return;
+  const w=$('#dust');
+  w.innerHTML=Array.from({length:22},()=>`<span class="dust" style="--x:${Math.random()*100}%;--s:${2+Math.random()*4}px;--t:${9+Math.random()*12}s;--dl:${-Math.random()*20}s;--dx:${(Math.random()-.5)*160}px"></span>`).join('');
+})();
 
+// split headings into animated words
+$$('.section-head h2').forEach(h=>{
+  h.innerHTML=h.textContent.trim().split(/\s+/).map((w,i)=>`<span class="sw" style="--i:${i}">${w}</span>`).join(' ');
 });
+
+// testimonial photos: use images/people/<name>.jpg when present, else initials
+$$('.avatar[data-photo]').forEach(a=>{
+  const im=new Image();
+  im.onload=()=>{a.style.backgroundImage=`url('${a.dataset.photo}')`;a.classList.add('has');};
+  im.src=a.dataset.photo;
+});
+
+// magnetic buttons
+if(!reduced&&matchMedia('(hover:hover)').matches){
+  $$('.btn-primary,.nav-cta').forEach(b=>{
+    b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.28}px)`;});
+    b.addEventListener('mouseleave',()=>b.style.transform='');
+  });
+}
 </script>
 </body>
 </html>
